@@ -1,0 +1,26 @@
+# Fichiers générés par Gradle
+build/
+.gradle/
+out/
+
+# Fichiers spécifiques à l'environnement local
+local.properties
+
+# Logs et fichiers temporaires
+*.log
+*.tmp
+*.lock
+.git
+
+# Fichiers du système
+.DS_Store
+Thumbs.db
+
+# Configuration de l'éditeur Visual Studio Code
+.vscode/
+
+# Extensions ou fichiers spécifiques aux environnements IDE
+*.iml
+.idea/
+
+
