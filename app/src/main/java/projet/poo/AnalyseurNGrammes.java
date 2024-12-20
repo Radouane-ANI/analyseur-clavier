@@ -1,15 +1,15 @@
 package projet.poo;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public interface AnalyseurNGrammes {
 
     void analyserTexte(String texte);
 
-    HashMap<String, Integer> getUngramme();
+    Map<String, Integer> getUngramme();
 
-    HashMap<String, Integer> getBigramme();
+    Map<String, Integer> getBigramme();
 
-    HashMap<String, Integer> getTrigramme();
+    Map<String, Integer> getTrigramme();
 
 }

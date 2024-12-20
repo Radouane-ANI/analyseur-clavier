@@ -1,12 +1,12 @@
 package projet.poo;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public interface GestionnaireFrequences {
 
-    void calculerFrequences(String urlCorpus);
+    void calculerFrequences();
 
-    HashMap<String, Integer> obtenirFrequences();
+    Map<String, Integer> obtenirFrequences();
 
     boolean calculTerminer();
 }
