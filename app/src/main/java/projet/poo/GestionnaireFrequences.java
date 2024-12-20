@@ -6,7 +6,14 @@ public interface GestionnaireFrequences {
 
     void calculerFrequences();
 
-    Map<String, Integer> obtenirFrequences();
-
     boolean calculTerminer();
+
+    Map<String, Integer> getUngramme();
+
+    Map<String, Integer> getBigramme();
+
+    Map<String, Integer> getTrigramme();
+
+    int getTailleTotal();
+
 }

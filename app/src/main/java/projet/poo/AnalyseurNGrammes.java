@@ -1,15 +1,9 @@
 package projet.poo;
 
-import java.util.Map;
-
-public interface AnalyseurNGrammes {
+public interface AnalyseurNGrammes extends Runnable {
 
     void analyserTexte(String texte);
 
-    Map<String, Integer> getUngramme();
-
-    Map<String, Integer> getBigramme();
-
-    Map<String, Integer> getTrigramme();
+    int getTaileTexte();
 
 }
