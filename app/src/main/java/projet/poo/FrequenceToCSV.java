@@ -24,7 +24,7 @@ public class FrequenceToCSV implements EcrireCSV {
     @Override
     public void ecrisDansCSV() throws IOException {
         try (FileWriter writer = new FileWriter("frequence.csv")) {
-            writer.append("Taille,,").append(String.valueOf(taille)).append("\n");
+            writer.append("Taille,").append(String.valueOf(taille)).append("\n");
 
             writer.append("Type,N-gramme,Valeur\n");
 
@@ -38,11 +38,19 @@ public class FrequenceToCSV implements EcrireCSV {
         }
     }
 
+    private String escapeCSV(String value) {
+        if (value == null) {
+            return "";
+        }
+        value = value.replace("\"", "\"\"");
+        return "\"" + value + "\"";
+    }
+
     private void writeMap(FileWriter writer, String type, Map<String, Integer> map) throws IOException {
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             writer.append(type).append(",")
-                    .append(entry.getKey()).append(",")
-                    .append(String.valueOf(entry.getValue())).append("\n");
+                    .append(escapeCSV(entry.getKey())).append(",")
+                    .append(entry.getValue() + "").append("\n");
         }
     }
 

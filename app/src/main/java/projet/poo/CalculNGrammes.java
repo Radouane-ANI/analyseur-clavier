@@ -62,12 +62,12 @@ public class CalculNGrammes implements AnalyseurNGrammes {
         }
         tailleTexte = texte.length();
         for (int i = 0; i < tailleTexte; i++) {
-            ungramme.compute(texte.substring(i, i + 1), (k, v) -> (v == null) ? 0 : v + 1);
+            ungramme.compute(texte.substring(i, i + 1), (k, v) -> (v == null) ? 1 : v + 1);
             if (i < tailleTexte - 1) {
-                bigramme.compute(texte.substring(i, i + 2), (k, v) -> (v == null) ? 0 : v + 1);
+                bigramme.compute(texte.substring(i, i + 2), (k, v) -> (v == null) ? 1 : v + 1);
             }
             if (i < tailleTexte - 2) {
-                trigramme.compute(texte.substring(i, i + 3), (k, v) -> (v == null) ? 0 : v + 1);
+                trigramme.compute(texte.substring(i, i + 3), (k, v) -> (v == null) ? 1 : v + 1);
             }
         }
     }
