@@ -3,6 +3,8 @@
  */
 package projet.poo;
 
+import java.io.IOException;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
@@ -10,5 +12,14 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+        GestionnaireFrequences g = new CompteurFrequences("corpus");
+        g.calculerFrequences();
+        EcrireCSV e = new FrequenceToCSV(g.getUngramme(), g.getBigramme(), g.getTrigramme(), g.getTailleTotal());
+        System.out.println(g.getUngramme());
+        try {
+            e.ecrisDansCSV();
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();}
     }
 }
