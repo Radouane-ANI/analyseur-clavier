@@ -4,6 +4,7 @@
 package projet.poo;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class App {
     public String getGreeting() {
@@ -20,6 +21,17 @@ public class App {
             e.ecrisDansCSV();
         } catch (IOException e1) {
             // TODO Auto-generated catch block
-            e1.printStackTrace();}
+            e1.printStackTrace();
+        }
+
+        Map<String, String> dispositionClavier = Map.of(
+    "A", "shift,a",  // Pour écrire "A", il faut appuyer sur Shift et "a"
+    "a", "a",        // Pour écrire "a", une seule touche est nécessaire
+    ",", "comma"     // Pour écrire ",", une touche "comma" suffit
+);
+        // Lecture et traitement du fichier CSV
+        String cheminFichier = "frequence1.csv"; // Chemin du fichier CSV généré
+        System.out.println("Lecture et tri du fichier CSV :");
+        LectureEtTraitementCSV.traiterCSV(cheminFichier,dispositionClavier);
     }
 }

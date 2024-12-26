@@ -1,0 +1,7 @@
+Taille,
+Type,N-gramme,Valeur
+"unigramme", "A",100,
+"unigramme","a",200,
+"bigramme", "a,A",50,
+"trigramme", "a,A,a",25,
+"trigramme", ",,A",15
