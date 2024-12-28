@@ -14,11 +14,19 @@ public class SequenceTouche implements Mouvement {
         this.sequenceDeTouche.add(touche);
     }
 
-    public SequenceTouche(List<Touche> sequenceDeTouche) {
-        if (sequenceDeTouche == null) {
+    public SequenceTouche(Mouvement mouvement, Touche touche) {
+        if (mouvement == null) {
             throw new IllegalArgumentException("La touche ne peut pas être null.");
         }
-        this.sequenceDeTouche = new ArrayList<>(sequenceDeTouche);
+        this.sequenceDeTouche = mouvement.getMouvement();
+        this.sequenceDeTouche.add(touche);
+    }
+    public SequenceTouche(Mouvement mouvement, Mouvement mouvement2) {
+        if (mouvement == null || mouvement2 == null) {
+            throw new IllegalArgumentException("La touche ne peut pas être null.");
+        }
+        this.sequenceDeTouche = mouvement.getMouvement();
+        this.sequenceDeTouche.addAll(mouvement2.getMouvement());
     }
 
     @Override

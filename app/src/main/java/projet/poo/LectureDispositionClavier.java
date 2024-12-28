@@ -40,55 +40,75 @@ public class LectureDispositionClavier implements Disposition {
         List<Mouvement> mouvements = new ArrayList<>();
         mouvements.add(new SequenceTouche(shift));
         sequenceTouche.put("shift", mouvements);
+
+        Touche altgr = new ToucheClavier(5, 9, geometry);
+        List<Mouvement> mouvementsAltgr = new ArrayList<>();
+        mouvementsAltgr.add(new SequenceTouche(altgr));
+        sequenceTouche.put("altgr", mouvementsAltgr);
     }
 
     public void analyseDisposition() {
-        // if (full != null) {
-        // analyseVariable(full, "");
-        // return;
-        // }
-        if (base != null) {
-            analyseVariable(base, "");
+        if (full != null) {
+            analyseToucheSimple(full, false);
+            analyseToucheSimple(full, true);
+            return;
         }
-        // if (altgr != null) {
-        // analyseVariable(altgr, "altgr");
-        // }
+        if (base != null) {
+            analyseToucheSimple(base, false);
+        }
+        if (altgr != null) {
+            analyseToucheSimple(altgr, true);
+        }
     }
 
-    private void analyseVariable(String clavier, String touchePreliminaire) {
+    private void analyseToucheSimple(String clavier, boolean isAltGr) {
         String[] lignes = clavier.split("\n");
-        int numLigne = 0;
-        for (int i = 0; i < 12; i++) {
-            if (i % 3 == 0) {
-                numLigne++;
-                continue;
+        for (int i = 1; i < 12; i++) {
+            if (i % 3 != 0) {
+                analyseLigneSimple(lignes, i, isAltGr);
             }
-            int numTouche = 0;
-            for (int j = 0; j < lignes[i].length(); j++) {
-                if (isDebutTouche(lignes, i, j) && j + 5 < lignes[i].length() - 1) {
-                    numTouche++;
-                    String touche = lignes[i].substring(j, j + 5);
-                    if (touche.charAt(1) == '*' && touche.charAt(2) != ' ' || touche.charAt(2) == ' ') {
-                        continue;
-                    }
-
-                    Touche t = new ToucheClavier(numLigne, numTouche, geometry);
-                    List<Mouvement> res = creerMouvements(t, i);
-
-                    String key = touche.charAt(2) + "";
-                    if ((i - 1) % 3 == 0) {
-                        char k = key.charAt(0);
-                        if (k >= 'A' && k <= 'Z' && lignes[i + 1].charAt(j + 2) == ' ') {
-                            List<Mouvement> minuscule = creerMouvements(t, i + 1);
-                            ajouteSequenceTouche(((char) (k + 32)) + "", minuscule);
-                        }
-                    }
-                    ajouteSequenceTouche(key, res);
-                }
-            }
-            System.out.println(lignes[i]);
         }
         System.out.println(sequenceTouche);
+    }
+
+    private void analyseLigneSimple(String[] lignes, int i, boolean isAltGr) {
+        int numLigne = (i / 3) + 1;
+        int numColone = 0;
+        for (int j = 0; j < lignes[i].length() - 5; j++) {
+            if (!isDebutTouche(lignes, i, j))
+                continue;
+            numColone++;
+
+            String touche = lignes[i].substring(j, j + 5);
+            int decalage = isAltGr ? 2 : 0;
+
+            if (touche.charAt(decalage + 1) == '*' || touche.charAt(decalage + 2) == ' ')
+                continue;
+
+            Touche t = new ToucheClavier(numLigne, numColone, geometry);
+            List<Mouvement> mouvements = creerMouvements(t, i, isAltGr ? sequenceTouche.get("altgr") : null);
+
+            decalage += 2;
+            String key = touche.charAt(decalage) + "";
+
+            ajouteSequenceTouche(key, mouvements);
+
+            if ((i - 1) % 3 == 0) {
+                gereMiniscule(lignes, i, j, isAltGr, key, numLigne, numColone);
+            }
+        }
+        System.out.println(lignes[i]);
+
+    }
+
+    private void gereMiniscule(String[] lignes, int i, int j, boolean isAltGr, String key, int numLigne,
+            int numColone) {
+        char k = key.charAt(0);
+        if (k >= 'A' && k <= 'Z' && lignes[i + 1].charAt(j + (isAltGr ? 4 : 2)) == ' ') {
+            Touche t = new ToucheClavier(numLigne, numColone, geometry);
+            List<Mouvement> mouvements = creerMouvements(t, i + 1, isAltGr ? sequenceTouche.get("altgr") : null);
+            ajouteSequenceTouche(Character.toLowerCase(k) + "", mouvements);
+        }
     }
 
     private void ajouteSequenceTouche(String key, List<Mouvement> res) {
@@ -99,18 +119,29 @@ public class LectureDispositionClavier implements Disposition {
         }
     }
 
-    private List<Mouvement> creerMouvements(Touche t, int i) {
+    private List<Mouvement> creerMouvements(Touche newTouche, int i, List<Mouvement> mouvementPreliminaire) {
         List<Mouvement> res = new ArrayList<>();
-        if ((i - 1) % 3 == 0) {
-            List<Mouvement> shift = sequenceTouche.get("shift");
-            for (Mouvement mouvement : shift) {
-                List<Touche> mouvementTouche = mouvement.getMouvement();
-                mouvementTouche.add(t);
-                res.add(new SequenceTouche(mouvementTouche));
+        boolean isShiftIndex = (i - 1) % 3 == 0;
+
+        if (mouvementPreliminaire == null) {
+            if (isShiftIndex) {
+                for (Mouvement mouvement : sequenceTouche.get("shift")) {
+                    res.add(new SequenceTouche(mouvement, newTouche));
+                }
+            } else {
+                res.add(new SequenceTouche(newTouche));
             }
         } else {
-            Mouvement sequence = new SequenceTouche(t);
-            res.add(sequence);
+            for (Mouvement mouvement : mouvementPreliminaire) {
+                if (isShiftIndex) {
+                    for (Mouvement mouv : sequenceTouche.get("shift")) {
+                        Mouvement newMouv = new SequenceTouche(mouvement, mouv);
+                        res.add(new SequenceTouche(newMouv, newTouche));
+                    }
+                } else {
+                    res.add(new SequenceTouche(mouvement, newTouche));
+                }
+            }
         }
         return res;
     }
