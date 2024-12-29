@@ -1,10 +1,14 @@
 package projet.poo;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.yaml.snakeyaml.Yaml;
+
 import com.moandjiezana.toml.Toml;
 
 public class LectureDispositionClavier implements Disposition {
@@ -14,6 +18,9 @@ public class LectureDispositionClavier implements Disposition {
     private final String base;
     private final String altgr;
     private final Toml toml;
+
+    private Map<String, List<Mouvement>> deadKey;
+    private Touche customDeadKey;
 
     public LectureDispositionClavier(String path) {
         if (path == null || path.isEmpty()) {
@@ -35,6 +42,7 @@ public class LectureDispositionClavier implements Disposition {
         if (geometry == null || (base == null && full == null && altgr == null)) {
             throw new IllegalArgumentException("Le fichier TOML ne contient pas une disposition de clavier valide.");
         }
+        deadKey = new HashMap<>();
         sequenceTouche = new HashMap<>();
         Touche shift = new ToucheClavier(3, 1, geometry);
         List<Mouvement> mouvements = new ArrayList<>();
@@ -45,73 +53,124 @@ public class LectureDispositionClavier implements Disposition {
         List<Mouvement> mouvementsAltgr = new ArrayList<>();
         mouvementsAltgr.add(new SequenceTouche(altgr));
         sequenceTouche.put("altgr", mouvementsAltgr);
+
+        Touche espc = new ToucheClavier(5, 3, geometry);
+        List<Mouvement> mouvementsEspc = new ArrayList<>();
+        mouvementsEspc.add(new SequenceTouche(espc));
+        sequenceTouche.put("espace", mouvementsEspc);
     }
 
     public void analyseDisposition() {
         if (full != null) {
-            analyseToucheSimple(full, false);
-            analyseToucheSimple(full, true);
+            analyseTouche(full, sequenceTouche.get("altgr"));
             return;
         }
         if (base != null) {
-            analyseToucheSimple(base, false);
+            analyseTouche(base, null);
+            initCustomDeadKey(base);
+            if (customDeadKey != null) {
+                analyseTouche(base, List.of(new SequenceTouche(customDeadKey)));
+            }
         }
         if (altgr != null) {
-            analyseToucheSimple(altgr, true);
+            analyseTouche(altgr, sequenceTouche.get("altgr"));
         }
+        gereDeadKeys();
+        System.out.println(sequenceTouche);
     }
 
-    private void analyseToucheSimple(String clavier, boolean isAltGr) {
+    private void analyseTouche(String clavier, List<Mouvement> mouvementPreliminaire) {
         String[] lignes = clavier.split("\n");
         for (int i = 1; i < 12; i++) {
             if (i % 3 != 0) {
-                analyseLigneSimple(lignes, i, isAltGr);
+                analyseLigne(lignes, i, mouvementPreliminaire);
             }
         }
         System.out.println(sequenceTouche);
     }
 
-    private void analyseLigneSimple(String[] lignes, int i, boolean isAltGr) {
+    private void analyseLigne(String[] lignes, int i, List<Mouvement> mouvementPreliminaire) {
         int numLigne = (i / 3) + 1;
         int numColone = 0;
+
         for (int j = 0; j < lignes[i].length() - 5; j++) {
             if (!isDebutTouche(lignes, i, j))
                 continue;
             numColone++;
 
             String touche = lignes[i].substring(j, j + 5);
-            int decalage = isAltGr ? 2 : 0;
+            if (touche.charAt(2) != ' ' && customDeadKey == null) {
+                Touche t = new ToucheClavier(numLigne, numColone, geometry);
+                List<Mouvement> mouvements = creerMouvements(t, i, null);
+                String key = touche.charAt(2) + "";
+                if (!(touche.charAt(1) == '*' && touche.charAt(2) == '*')) {
+                    ajouteSequenceTouche(key, mouvements, touche.charAt(1) == '*');
+                    if ((i - 1) % 3 == 0 && touche.charAt(1) != '*') {
+                        gereMiniscule(lignes, i, j, mouvementPreliminaire, key, numLigne, numColone);
+                    }
+                }
+            }
 
-            if (touche.charAt(decalage + 1) == '*' || touche.charAt(decalage + 2) == ' ')
-                continue;
-
-            Touche t = new ToucheClavier(numLigne, numColone, geometry);
-            List<Mouvement> mouvements = creerMouvements(t, i, isAltGr ? sequenceTouche.get("altgr") : null);
-
-            decalage += 2;
-            String key = touche.charAt(decalage) + "";
-
-            ajouteSequenceTouche(key, mouvements);
-
-            if ((i - 1) % 3 == 0) {
-                gereMiniscule(lignes, i, j, isAltGr, key, numLigne, numColone);
+            if (touche.charAt(4) != ' ' && mouvementPreliminaire != null) {
+                Touche t = new ToucheClavier(numLigne, numColone, geometry);
+                List<Mouvement> mouvements = creerMouvements(t, i, mouvementPreliminaire);
+                String key = touche.charAt(4) + "";
+                ajouteSequenceTouche(key, mouvements, touche.charAt(3) == '*');
+                if ((i - 1) % 3 == 0 && touche.charAt(3) != '*') {
+                    gereMiniscule(lignes, i, j, mouvementPreliminaire, key, numLigne, numColone);
+                }
             }
         }
         System.out.println(lignes[i]);
-
     }
 
-    private void gereMiniscule(String[] lignes, int i, int j, boolean isAltGr, String key, int numLigne,
-            int numColone) {
-        char k = key.charAt(0);
-        if (k >= 'A' && k <= 'Z' && lignes[i + 1].charAt(j + (isAltGr ? 4 : 2)) == ' ') {
-            Touche t = new ToucheClavier(numLigne, numColone, geometry);
-            List<Mouvement> mouvements = creerMouvements(t, i + 1, isAltGr ? sequenceTouche.get("altgr") : null);
-            ajouteSequenceTouche(Character.toLowerCase(k) + "", mouvements);
+    private void initCustomDeadKey(String base) {
+        if (!base.contains("**")) {
+            return;
+        }
+        int numLigne = 0;
+        int numColone = 0;
+        String[] lignes = base.split("\n");
+
+        for (int i = 0; i < lignes.length; i++) {
+            if (i % 3 == 0) {
+                numLigne++;
+                continue;
+            }
+            numColone = 0;
+            for (int j = 0; j < lignes[i].length() - 5; j++) {
+                if (!isDebutTouche(lignes, i, j))
+                    continue;
+                numColone++;
+                String touche = lignes[i].substring(j, j + 5);
+                if (touche.contains("**")) {
+                    customDeadKey = new ToucheClavier(numLigne, numColone, geometry);
+                }
+            }
+
         }
     }
 
-    private void ajouteSequenceTouche(String key, List<Mouvement> res) {
+    private void gereMiniscule(String[] lignes, int i, int j, List<Mouvement> mvPreliminaire, String key, int numLigne,
+            int numColone) {
+        char k = key.charAt(0);
+        int decalage = (mvPreliminaire == null ? 2 : 4);
+        if (k >= 'A' && k <= 'Z' && lignes[i + 1].charAt(j + decalage) == ' ') {
+            Touche t = new ToucheClavier(numLigne, numColone, geometry);
+            List<Mouvement> mouvements = creerMouvements(t, i + 1, mvPreliminaire);
+            ajouteSequenceTouche(Character.toLowerCase(k) + "", mouvements, false);
+        }
+    }
+
+    private void ajouteSequenceTouche(String key, List<Mouvement> res, boolean isDK) {
+        if (isDK) {
+            if (deadKey.containsKey("*" + key)) {
+                deadKey.get("*" + key).addAll(res);
+            } else {
+                deadKey.put("*" + key, res);
+            }
+            return;
+        }
         if (sequenceTouche.containsKey(key)) {
             sequenceTouche.get(key).addAll(res);
         } else {
@@ -171,5 +230,50 @@ public class LectureDispositionClavier implements Disposition {
             return true;
         }
         return false;
+    }
+
+    private void gereDeadKeys() {
+        String yamlFilePath = "src/main/resources/dead_keys.yaml";
+
+        // Créer une instance de Yaml
+        Yaml yaml = new Yaml();
+
+        // Charger le fichier YAML en tant que Map
+        try (FileInputStream inputStream = new FileInputStream(yamlFilePath)) {
+            List<Map<String, String>> data = yaml.load(inputStream);
+            for (Map<String, String> map : data) {
+                if (deadKey.containsKey(map.get("char"))) {
+                    ajouteDeadKeys(map);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Erreur lors du chargement du fichier YAML: " + e.getMessage());
+            System.out.println("Certains caractères spéciaux ne seront pas pris en compte.");
+        }
+    }
+
+    private void ajouteDeadKeys(Map<String, String> mapDK) {
+        String base = mapDK.get("base");
+        String alt = mapDK.get("alt");
+        for (int i = 0; i < base.length(); i++) {
+            if (sequenceTouche.containsKey(base.charAt(i) + "")) {
+                List<Mouvement> mouvements = new ArrayList<>(deadKey.get(mapDK.get("char")));
+                List<Mouvement> res = fusionneMouvements(mouvements, sequenceTouche.get(base.charAt(i) + ""));
+                ajouteSequenceTouche(alt.charAt(i) + "", res, false);
+            }
+        }
+        Touche espc = sequenceTouche.get("espace").get(0).get(0);
+        List<Mouvement> alt_space = creerMouvements(espc, 0, deadKey.get(mapDK.get("char")));
+        ajouteSequenceTouche(mapDK.get("alt_space") + "", alt_space, false);
+    }
+
+    private List<Mouvement> fusionneMouvements(List<Mouvement> mouvements, List<Mouvement> mouvements2) {
+        List<Mouvement> res = new ArrayList<>();
+        for (Mouvement mouv : mouvements) {
+            for (Mouvement mouv2 : mouvements2) {
+                res.add(new SequenceTouche(mouv, mouv2));
+            }
+        }
+        return res;
     }
 }

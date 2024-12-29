@@ -43,4 +43,13 @@ public class SequenceTouche implements Mouvement {
     public String toString() {
         return sequenceDeTouche + "\n";
     }
+
+    @Override
+    public Touche get(int i) {
+        if (sequenceDeTouche.size() > i) {
+            return sequenceDeTouche.get(i);
+        } else {
+            throw new IllegalArgumentException("L'index est trop grand.");
+        }
+    }
 }

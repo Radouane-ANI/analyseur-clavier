@@ -25,6 +25,7 @@ dependencies {
     implementation libs.guava
 
     implementation 'com.moandjiezana.toml:toml4j:0.7.2'
+    implementation 'org.yaml:snakeyaml:2.0'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
