@@ -1,7 +1,8 @@
-Taille,
+Taille,1230498
 Type,N-gramme,Valeur
 "unigramme", "A",100,
-"unigramme","a",200,
+"unigramme", "a",200,
 "bigramme", "a,A",50,
 "trigramme", "a,A,a",25,
 "trigramme", ",,A",15
+"trigramme", "aaa",50,

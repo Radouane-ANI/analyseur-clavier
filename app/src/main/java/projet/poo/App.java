@@ -4,6 +4,7 @@
 package projet.poo;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class App {
@@ -24,14 +25,24 @@ public class App {
             e1.printStackTrace();
         }
 
-        Map<String, String> dispositionClavier = Map.of(
-    "A", "shift,a",  // Pour écrire "A", il faut appuyer sur Shift et "a"
-    "a", "a",        // Pour écrire "a", une seule touche est nécessaire
-    ",", "comma"     // Pour écrire ",", une touche "comma" suffit
-);
+       // Création de la map dispositionClavier avec List<Touche>
+        Map<String, List<Touche>> dispositionClavier = Map.of(
+            "A", List.of(
+                new ToucheClavier(1, 2, "Index"), // Touche "a"
+                new ToucheClavier(0, 0, "Auriculaire") // Touche "Shift"
+            ),
+            "a", List.of(
+                new ToucheClavier(1, 2, "Index") // Touche "a"
+            ),
+            ",", List.of(
+                new ToucheClavier(3, 3, "Auriculaire") // Touche ","
+            )
+        );
+
         // Lecture et traitement du fichier CSV
-        String cheminFichier = "frequence1.csv"; // Chemin du fichier CSV généré
+        String cheminFichier = "frequence.csv"; // Chemin du fichier CSV généré
         System.out.println("Lecture et tri du fichier CSV :");
-        LectureEtTraitementCSV.traiterCSV(cheminFichier,dispositionClavier);
+        LectureEtTraitementCSV traitement = new LectureEtTraitementCSV();
+        traitement.traiterCSV(cheminFichier,dispositionClavier);
     }
 }

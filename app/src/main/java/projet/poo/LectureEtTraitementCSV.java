@@ -3,9 +3,34 @@ package projet.poo;
 import java.io.*;
 import java.util.*;
 
-public class LectureEtTraitementCSV {
+/**
+ * Classe permettant de lire et traiter un fichier CSV contenant des informations sur les n-grammes.
+ * Implémente l'interface ICSVTraitement.
+ * Le traitement inclut la lecture du fichier, la création des n-grammes, 
+ * le filtrage en fonction du nombre de touches nécessaires et l'affichage des résultats.
+ */
+public class LectureEtTraitementCSV implements ICSVTraitement {
     
-    public static void traiterCSV(String cheminFichier,Map<String, String> dispositionClavier) {
+    /**
+     * Lit un fichier CSV et effectue un traitement sur les n-grammes qu'il contient.
+     * Le fichier CSV doit respecter le format suivant :
+     * 
+     * Chaque ligne contient trois colonnes séparées par des virgules :
+     *   Type de l'n-gramme
+     *   Séquence de caractères représentant l'n-gramme.
+     *   Valeur associée (une fréquence).
+     * 
+     * Le traitement inclut les étapes suivantes :
+     *   Ignorer les deux premières lignes (entête).
+     *   Créer des objets Ngram à partir des données valides.
+     *   Filtrer les n-grammes ayant une séquence de touches de plus de 3.
+     *   Afficher les n-grammes restants avec leur coût de touches calculé.
+     *
+     * @param cheminFichier
+     * @param dispositionClavier
+     */
+    @Override
+    public void traiterCSV(String cheminFichier,Map<String, List<Touche>> dispositionClavier) {
         List<Ngram> ngrammes = new ArrayList<>();
     
         try (BufferedReader br = new BufferedReader(new FileReader(cheminFichier))) {
@@ -33,29 +58,16 @@ public class LectureEtTraitementCSV {
                 }
             }
 
-            // Calculer et trier les n-grammes par coût des touches nécessaires
-            ngrammes.sort((a, b) -> {
-            int coutA = a.calculerCoutTouches(dispositionClavier);
-            int coutB = b.calculerCoutTouches(dispositionClavier);
-            return Integer.compare(coutA, coutB); // Tri par coût croissant
-            });
+             // Supprimer les n-grammes avec des séquences de touches > 3
+             ngrammes.removeIf(ngram -> ngram.getSequenceTouches(dispositionClavier).size() > 3);
 
-             // Afficher les n-grammes triés
-        System.out.println("Affichage de tous les n-grammes triés par coût des touches :");
-        for (Ngram ngram : ngrammes) {
-            int coutTouches = ngram.calculerCoutTouches(dispositionClavier);
-            System.out.println("Type: " + ngram.getType() + ", N-gramme: " + ngram.getNgramme() +
-                               ", Valeur: " + ngram.getValeur() + ", Coût: " + coutTouches);
-        }
-    
-            // Trier les n-grammes par fréquence décroissante
-            // ngrammes.sort(Comparator.comparingInt(Ngram::getValeur).reversed());
-    
-            // System.out.println("Affichage de tous les n-grammes :");
-            // for (Ngram ngram : ngrammes) {
-            //     System.out.println("Type: " + ngram.getType() + ", N-gramme: " + ngram.getNgramme() + ", Valeur: " + ngram.getValeur());
-            // }
-            
+             // Afficher les n-grammes filtrés
+             System.out.println("N-grammes restants après filtrage :");
+             for (INgram ngram : ngrammes) {
+                 int coutTouches = ngram.calculerCoutTouches(dispositionClavier);
+                 System.out.println("Type: " + ngram.getType() + ", N-gramme: " + ngram.getNgramme() +
+                                    ", Valeur: " + ngram.getValeur() + ", Coût: " + coutTouches);
+             } 
     
         } catch (IOException e) {
             e.printStackTrace();
