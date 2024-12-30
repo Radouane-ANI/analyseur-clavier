@@ -8,5 +8,5 @@ public interface Disposition {
 
     List<Mouvement> getsequenceTouche(char caractere);
 
-    String getGeometrie();
+    Geometry getGeometrie();
 }

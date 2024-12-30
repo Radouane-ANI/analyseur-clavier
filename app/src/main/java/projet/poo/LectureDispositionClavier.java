@@ -13,7 +13,7 @@ import com.moandjiezana.toml.Toml;
 
 public class LectureDispositionClavier implements Disposition {
     private final Map<String, List<Mouvement>> sequenceTouche;
-    private final String geometry;
+    private final Geometry geometry;
     private final String full;
     private final String base;
     private final String altgr;
@@ -35,7 +35,7 @@ public class LectureDispositionClavier implements Disposition {
         } catch (Exception e) {
             throw new IllegalArgumentException("Fichiers TOML invalide.");
         }
-        geometry = toml.getString("geometry");
+        geometry = Geometry.getGeometry(toml.getString("geometry"));
         base = toml.getString("base");
         full = toml.getString("full");
         altgr = toml.getString("altgr");
@@ -44,20 +44,39 @@ public class LectureDispositionClavier implements Disposition {
         }
         deadKey = new HashMap<>();
         sequenceTouche = new HashMap<>();
-        Touche shift = new ToucheClavier(3, 1, geometry);
-        List<Mouvement> mouvements = new ArrayList<>();
-        mouvements.add(new SequenceTouche(shift));
-        sequenceTouche.put("shift", mouvements);
+        initToucheDeBase();
+    }
 
-        Touche altgr = new ToucheClavier(5, 9, geometry);
+    private void initToucheDeBase() {
+        for (Touche shift : geometry.getPosShift()) {
+            List<Mouvement> mouvements = new ArrayList<>();
+            mouvements.add(new SequenceTouche(shift));
+            ajouteSequenceTouche("shift", mouvements, false);
+        }
+        Touche altgr = geometry.getAltgr();
         List<Mouvement> mouvementsAltgr = new ArrayList<>();
         mouvementsAltgr.add(new SequenceTouche(altgr));
-        sequenceTouche.put("altgr", mouvementsAltgr);
+        ajouteSequenceTouche("altgr", mouvementsAltgr, false);
 
-        Touche espc = new ToucheClavier(5, 3, geometry);
+        Touche espc = geometry.getEsp();
         List<Mouvement> mouvementsEspc = new ArrayList<>();
         mouvementsEspc.add(new SequenceTouche(espc));
-        sequenceTouche.put("espace", mouvementsEspc);
+        sequenceTouche.put(" ", mouvementsEspc);
+        if (toml.contains("spacebar")) {
+            if (toml.contains("spacebar.shift")) {
+                List<Mouvement> mv = creerMouvements(espc, 0, sequenceTouche.get("shift"));
+                ajouteSequenceTouche(toml.getString("spacebar.shift"), mv, false);
+            }
+            if (toml.contains("spacebar.altgr")) {
+                List<Mouvement> mv = creerMouvements(espc, 0, mouvementsAltgr);
+                ajouteSequenceTouche(toml.getString("spacebar.altgr"), mv, false);
+            }
+            if (toml.contains("spacebar.altgr_shift")) {
+                List<Mouvement> mv = creerMouvements(espc, 1, mouvementsAltgr);
+                ajouteSequenceTouche(toml.getString("spacebar.altgr_shift"), mv, false);
+            }
+        }
+
     }
 
     public void analyseDisposition() {
@@ -76,7 +95,6 @@ public class LectureDispositionClavier implements Disposition {
             analyseTouche(altgr, sequenceTouche.get("altgr"));
         }
         gereDeadKeys();
-        System.out.println(sequenceTouche);
     }
 
     private void analyseTouche(String clavier, List<Mouvement> mouvementPreliminaire) {
@@ -86,7 +104,6 @@ public class LectureDispositionClavier implements Disposition {
                 analyseLigne(lignes, i, mouvementPreliminaire);
             }
         }
-        System.out.println(sequenceTouche);
     }
 
     private void analyseLigne(String[] lignes, int i, List<Mouvement> mouvementPreliminaire) {
@@ -97,7 +114,9 @@ public class LectureDispositionClavier implements Disposition {
             if (!isDebutTouche(lignes, i, j))
                 continue;
             numColone++;
-
+            if (!posValide(lignes, i, j)) {
+                continue;
+            }
             String touche = lignes[i].substring(j, j + 5);
             if (touche.charAt(2) != ' ' && customDeadKey == null) {
                 Touche t = new ToucheClavier(numLigne, numColone, geometry);
@@ -121,7 +140,6 @@ public class LectureDispositionClavier implements Disposition {
                 }
             }
         }
-        System.out.println(lignes[i]);
     }
 
     private void initCustomDeadKey(String base) {
@@ -207,26 +225,32 @@ public class LectureDispositionClavier implements Disposition {
 
     @Override
     public List<Mouvement> getsequenceTouche(char caractere) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTouche'");
+        return new ArrayList<>(sequenceTouche.get(caractere + ""));
     }
 
     @Override
-    public String getGeometrie() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getGeometrie'");
+    public Geometry getGeometrie() {
+        return geometry;
     }
 
     private boolean isDebutTouche(String[] lignes, int i, int j) {
         if (lignes[i].charAt(j) != '┆' && lignes[i].charAt(j) != '│' && lignes[i].charAt(j) != '┃'
                 && lignes[i].charAt(j) != '·') {
             return false;
-
         }
         if (i > 0 && lignes[i].charAt(j) == lignes[i - 1].charAt(j)) {
             return true;
         }
         if (i < 11 && lignes[i].charAt(j) == lignes[i + 1].charAt(j)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean posValide(String[] lignes, int i, int j) {
+        if (lignes[i].length() >= i + 6 && (lignes[i].charAt(j + 6) == '┆' || lignes[i].charAt(j + 6) == '│'
+                || lignes[i].charAt(j + 6) == '┃'
+                || lignes[i].charAt(j + 6) == '·')) {
             return true;
         }
         return false;
@@ -246,10 +270,33 @@ public class LectureDispositionClavier implements Disposition {
                     ajouteDeadKeys(map);
                 }
             }
+            if (customDeadKey != null) {
+                ajouteCustomDeadKeys(data.get(0));
+            }
         } catch (Exception e) {
             System.err.println("Erreur lors du chargement du fichier YAML: " + e.getMessage());
             System.out.println("Certains caractères spéciaux ne seront pas pris en compte.");
         }
+    }
+
+    private void ajouteCustomDeadKeys(Map<String, String> mapDK) {
+        List<Mouvement> mouvements = List.of(new SequenceTouche(customDeadKey));
+        Touche esp = sequenceTouche.get(" ").get(0).get(0);
+        if (!toml.contains("spacebar.1dk")) {
+            String dk;
+            dk = mapDK.get("alt_space");
+            List<Mouvement> res = creerMouvements(esp, 0, mouvements);
+            ajouteSequenceTouche(dk, res, false);
+        }
+
+        if (toml.contains("spacebar.1dk_shift")) {
+            return;
+        }
+        String dk_shift;
+        dk_shift = mapDK.get("alt_self");
+
+        List<Mouvement> res2 = creerMouvements(esp, 1, mouvements);
+        ajouteSequenceTouche(dk_shift, res2, false);
     }
 
     private void ajouteDeadKeys(Map<String, String> mapDK) {
@@ -262,7 +309,7 @@ public class LectureDispositionClavier implements Disposition {
                 ajouteSequenceTouche(alt.charAt(i) + "", res, false);
             }
         }
-        Touche espc = sequenceTouche.get("espace").get(0).get(0);
+        Touche espc = sequenceTouche.get(" ").get(0).get(0);
         List<Mouvement> alt_space = creerMouvements(espc, 0, deadKey.get(mapDK.get("char")));
         ajouteSequenceTouche(mapDK.get("alt_space") + "", alt_space, false);
     }

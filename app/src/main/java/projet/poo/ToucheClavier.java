@@ -6,14 +6,14 @@ public class ToucheClavier implements Touche {
     private final Doigts doigt;
     private final boolean mainsDroite;
 
-    public ToucheClavier(int ligne, int colonne, String geometrieClavier) {
+    public ToucheClavier(int ligne, int colonne, Geometry geometrieClavier) {
         if (ligne < 0 || colonne < 0 || geometrieClavier == null) {
             throw new IllegalArgumentException("Les paramètres fournis sont invalides.");
         }
         this.ligne = ligne;
         this.colonne = colonne;
-        this.doigt = getDoigt(geometrieClavier);
-        this.mainsDroite = isMainsDroite(geometrieClavier);
+        this.doigt = getDoigt(geometrieClavier, ligne, colonne);
+        this.mainsDroite = isMainsDroite(geometrieClavier, ligne, colonne);
     }
 
     @Override
@@ -36,12 +36,31 @@ public class ToucheClavier implements Touche {
         return mainsDroite;
     }
 
-    private static boolean isMainsDroite(String geometrieClavier) {
-        return true;
+    private static boolean isMainsDroite(Geometry geometrieClavier, int ligne, int colonne) {
+        if (ligne < 1 || ligne > 5) {
+            return false;
+        }
+        int[] limites = geometrieClavier.getMillieu();
+        return colonne > limites[ligne];
     }
 
-    private static Doigts getDoigt(String geometrieClavier) {
-        return Doigts.AURICULAIRE;
+    private static Doigts getDoigt(Geometry geometrieClavier, int ligne, int colonne) {
+        if (ligne == 5 && (geometrieClavier != Geometry.JIS && colonne == 4
+                || geometrieClavier == Geometry.JIS && colonne == 5)) {
+            return Doigts.POUCE; // touche espace
+        }
+        int[] limites = geometrieClavier.getMillieu();
+        int milieu = limites[ligne];
+        int decalage = milieu <= 6 ? 0 : 1;
+        if (colonne >= milieu - decalage - 1 && colonne <= milieu + decalage) {
+            return Doigts.INDEX;
+        } else if (colonne >= milieu - decalage - 2 && colonne <= milieu + decalage + 1) {
+            return Doigts.MAJEUR;
+        } else if (colonne >= milieu - decalage - 3 && colonne <= milieu + decalage + 2) {
+            return Doigts.ANNULAIRE;
+        } else {
+            return Doigts.AURICULAIRE;
+        }
     }
 
     @Override

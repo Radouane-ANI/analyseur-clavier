@@ -3,23 +3,35 @@
  */
 package projet.poo;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import org.yaml.snakeyaml.Yaml;
 
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         System.out.println(new App().getGreeting());
-        GestionnaireFrequences g = new CompteurFrequences("corpus");
-        g.calculerFrequences();
-        EcrireCSV e = new FrequenceToCSV(g.getUngramme(), g.getBigramme(), g.getTrigramme(), g.getTailleTotal());
-        System.out.println(g.getUngramme());
-        try {
-            e.ecrisDansCSV();
-        } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();}
+
+        // GestionnaireFrequences g = new CompteurFrequences("corpus");
+        // g.calculerFrequences();
+        // EcrireCSV e = new FrequenceToCSV(g.getUngramme(), g.getBigramme(),
+        // g.getTrigramme(), g.getTailleTotal());
+        // System.out.println(g.getUngramme());
+        // try {
+        // e.ecrisDansCSV();
+        // } catch (IOException e1) {
+        // // TODO Auto-generated catch block
+        // e1.printStackTrace();
+        // }
+
+        Disposition d = new LectureDispositionClavier("exemple2.toml");
+        d.analyseDisposition();
     }
 }
