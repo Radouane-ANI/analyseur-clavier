@@ -6,7 +6,7 @@ public interface Mouvement {
     
     int getLongueur();
 
-    List<Touche> getMouvement();
+    List<Touche> sequenceDeTouche();
 
     Touche get(int i);
 }

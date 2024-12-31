@@ -14,27 +14,27 @@ public enum Geometry {
     List<Touche> getPosShift() {
         List<Touche> posShift = new ArrayList<>();
         if (this != ERGO)
-            posShift.add(new ToucheClavier(4, 1, this));
+            posShift.add(ToucheClavierFactory.create(4, 1, this));
         switch (this) {
             case ERGO:
-                posShift.add(new ToucheClavier(3, 1, this));
-                posShift.add(new ToucheClavier(3, 14, this));
+                posShift.add(ToucheClavierFactory.create(3, 1, this));
+                posShift.add(ToucheClavierFactory.create(3, 14, this));
                 break;
             case ANSI:
-                posShift.add(new ToucheClavier(4, 12, this));
+                posShift.add(ToucheClavierFactory.create(4, 12, this));
                 break;
             case ABNT:
-                posShift.add(new ToucheClavier(4, 14, this));
+                posShift.add(ToucheClavierFactory.create(4, 14, this));
                 break;
             case ALT:
-                posShift.add(new ToucheClavier(4, 12, this));
+                posShift.add(ToucheClavierFactory.create(4, 12, this));
                 break;
 
             case ISO:
-                posShift.add(new ToucheClavier(4, 13, this));
+                posShift.add(ToucheClavierFactory.create(4, 13, this));
                 break;
             case JIS:
-                posShift.add(new ToucheClavier(4, 13, this));
+                posShift.add(ToucheClavierFactory.create(4, 13, this));
                 break;
         }
         return posShift;
@@ -42,16 +42,24 @@ public enum Geometry {
 
     Touche getAltgr() {
         if (this == JIS) {
-            return new ToucheClavier(5, 8, this);
+            return ToucheClavierFactory.create(5, 8, this);
         }
-        return new ToucheClavier(5, 5, this);
+        return ToucheClavierFactory.create(5, 5, this);
     }
 
     Touche getEsp() {
         if (this == JIS) {
-            return new ToucheClavier(5, 5, this);
+            return ToucheClavierFactory.create(5, 5, this);
         }
-        return new ToucheClavier(5, 4, this);
+        return ToucheClavierFactory.create(5, 4, this);
+    }
+
+    Touche getEntr() {
+        if (this == ANSI || this == ALT) {
+            return ToucheClavierFactory.create(4, 13, this);
+
+        }
+        return ToucheClavierFactory.create(3, 14, this);
     }
 
     static Geometry getGeometry(String geometry) {

@@ -2,11 +2,11 @@ package projet.poo;
 
 public interface Touche {
 
-    int getColonne();
+    int colonne();
 
-    int getLigne();
+    int ligne();
 
-    Doigts getDoigt();
+    Doigts doigt();
 
-    boolean isMainsDroite();
+    boolean mainsDroite();
 }

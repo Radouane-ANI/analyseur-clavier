@@ -50,18 +50,23 @@ public class LectureDispositionClavier implements Disposition {
     private void initToucheDeBase() {
         for (Touche shift : geometry.getPosShift()) {
             List<Mouvement> mouvements = new ArrayList<>();
-            mouvements.add(new SequenceTouche(shift));
+            mouvements.add(SequenceToucheFactory.create(shift));
             ajouteSequenceTouche("shift", mouvements, false);
         }
         Touche altgr = geometry.getAltgr();
         List<Mouvement> mouvementsAltgr = new ArrayList<>();
-        mouvementsAltgr.add(new SequenceTouche(altgr));
+        mouvementsAltgr.add(SequenceToucheFactory.create(altgr));
         ajouteSequenceTouche("altgr", mouvementsAltgr, false);
 
         Touche espc = geometry.getEsp();
         List<Mouvement> mouvementsEspc = new ArrayList<>();
-        mouvementsEspc.add(new SequenceTouche(espc));
+        mouvementsEspc.add(SequenceToucheFactory.create(espc));
         sequenceTouche.put(" ", mouvementsEspc);
+
+        Touche entr = geometry.getEntr();
+        List<Mouvement> mouvementsEntr = new ArrayList<>();
+        mouvementsEntr.add(SequenceToucheFactory.create(entr));
+        sequenceTouche.put("", mouvementsEntr);
         if (toml.contains("spacebar")) {
             if (toml.contains("spacebar.shift")) {
                 List<Mouvement> mv = creerMouvements(espc, 0, sequenceTouche.get("shift"));
@@ -88,7 +93,7 @@ public class LectureDispositionClavier implements Disposition {
             analyseTouche(base, null);
             initCustomDeadKey(base);
             if (customDeadKey != null) {
-                analyseTouche(base, List.of(new SequenceTouche(customDeadKey)));
+                analyseTouche(base, List.of(SequenceToucheFactory.create(customDeadKey)));
             }
         }
         if (altgr != null) {
@@ -119,7 +124,7 @@ public class LectureDispositionClavier implements Disposition {
             }
             String touche = lignes[i].substring(j, j + 5);
             if (touche.charAt(2) != ' ' && customDeadKey == null) {
-                Touche t = new ToucheClavier(numLigne, numColone, geometry);
+                Touche t = ToucheClavierFactory.create(numLigne, numColone, geometry);
                 List<Mouvement> mouvements = creerMouvements(t, i, null);
                 String key = touche.charAt(2) + "";
                 if (!(touche.charAt(1) == '*' && touche.charAt(2) == '*')) {
@@ -131,7 +136,7 @@ public class LectureDispositionClavier implements Disposition {
             }
 
             if (touche.charAt(4) != ' ' && mouvementPreliminaire != null) {
-                Touche t = new ToucheClavier(numLigne, numColone, geometry);
+                Touche t = ToucheClavierFactory.create(numLigne, numColone, geometry);
                 List<Mouvement> mouvements = creerMouvements(t, i, mouvementPreliminaire);
                 String key = touche.charAt(4) + "";
                 ajouteSequenceTouche(key, mouvements, touche.charAt(3) == '*');
@@ -162,7 +167,7 @@ public class LectureDispositionClavier implements Disposition {
                 numColone++;
                 String touche = lignes[i].substring(j, j + 5);
                 if (touche.contains("**")) {
-                    customDeadKey = new ToucheClavier(numLigne, numColone, geometry);
+                    customDeadKey = ToucheClavierFactory.create(numLigne, numColone, geometry);
                 }
             }
 
@@ -174,7 +179,7 @@ public class LectureDispositionClavier implements Disposition {
         char k = key.charAt(0);
         int decalage = (mvPreliminaire == null ? 2 : 4);
         if (k >= 'A' && k <= 'Z' && lignes[i + 1].charAt(j + decalage) == ' ') {
-            Touche t = new ToucheClavier(numLigne, numColone, geometry);
+            Touche t = ToucheClavierFactory.create(numLigne, numColone, geometry);
             List<Mouvement> mouvements = creerMouvements(t, i + 1, mvPreliminaire);
             ajouteSequenceTouche(Character.toLowerCase(k) + "", mouvements, false);
         }
@@ -203,20 +208,20 @@ public class LectureDispositionClavier implements Disposition {
         if (mouvementPreliminaire == null) {
             if (isShiftIndex) {
                 for (Mouvement mouvement : sequenceTouche.get("shift")) {
-                    res.add(new SequenceTouche(mouvement, newTouche));
+                    res.add(SequenceToucheFactory.create(mouvement, newTouche));
                 }
             } else {
-                res.add(new SequenceTouche(newTouche));
+                res.add(SequenceToucheFactory.create(newTouche));
             }
         } else {
             for (Mouvement mouvement : mouvementPreliminaire) {
                 if (isShiftIndex) {
                     for (Mouvement mouv : sequenceTouche.get("shift")) {
-                        Mouvement newMouv = new SequenceTouche(mouvement, mouv);
-                        res.add(new SequenceTouche(newMouv, newTouche));
+                        Mouvement newMouv = SequenceToucheFactory.create(mouvement, mouv);
+                        res.add(SequenceToucheFactory.create(newMouv, newTouche));
                     }
                 } else {
-                    res.add(new SequenceTouche(mouvement, newTouche));
+                    res.add(SequenceToucheFactory.create(mouvement, newTouche));
                 }
             }
         }
@@ -280,7 +285,7 @@ public class LectureDispositionClavier implements Disposition {
     }
 
     private void ajouteCustomDeadKeys(Map<String, String> mapDK) {
-        List<Mouvement> mouvements = List.of(new SequenceTouche(customDeadKey));
+        List<Mouvement> mouvements = List.of(SequenceToucheFactory.create(customDeadKey));
         Touche esp = sequenceTouche.get(" ").get(0).get(0);
         if (!toml.contains("spacebar.1dk")) {
             String dk;
@@ -318,7 +323,7 @@ public class LectureDispositionClavier implements Disposition {
         List<Mouvement> res = new ArrayList<>();
         for (Mouvement mouv : mouvements) {
             for (Mouvement mouv2 : mouvements2) {
-                res.add(new SequenceTouche(mouv, mouv2));
+                res.add(SequenceToucheFactory.create(mouv, mouv2));
             }
         }
         return res;

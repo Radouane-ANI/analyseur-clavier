@@ -1,39 +1,18 @@
 package projet.poo;
 
-public class ToucheClavier implements Touche {
-    private final int ligne;
-    private final int colonne;
-    private final Doigts doigt;
-    private final boolean mainsDroite;
+public class ToucheClavierFactory {
 
-    public ToucheClavier(int ligne, int colonne, Geometry geometrieClavier) {
+    public static Touche create(int ligne, int colonne, Geometry geometrieClavier) {
+        validateParameters(ligne, colonne, geometrieClavier);
+        Doigts doigt = getDoigt(geometrieClavier, ligne, colonne);
+        boolean mainsDroite = isMainsDroite(geometrieClavier, ligne, colonne);
+        return new ToucheClavier(ligne, colonne, doigt, mainsDroite);
+    }
+
+    private static void validateParameters(int ligne, int colonne, Geometry geometrieClavier) {
         if (ligne < 0 || colonne < 0 || geometrieClavier == null) {
             throw new IllegalArgumentException("Les paramètres fournis sont invalides.");
         }
-        this.ligne = ligne;
-        this.colonne = colonne;
-        this.doigt = getDoigt(geometrieClavier, ligne, colonne);
-        this.mainsDroite = isMainsDroite(geometrieClavier, ligne, colonne);
-    }
-
-    @Override
-    public int getColonne() {
-        return colonne;
-    }
-
-    @Override
-    public int getLigne() {
-        return ligne;
-    }
-
-    @Override
-    public Doigts getDoigt() {
-        return doigt;
-    }
-
-    @Override
-    public boolean isMainsDroite() {
-        return mainsDroite;
     }
 
     private static boolean isMainsDroite(Geometry geometrieClavier, int ligne, int colonne) {
@@ -63,10 +42,6 @@ public class ToucheClavier implements Touche {
         }
     }
 
-    @Override
-    public String toString() {
-        return "ToucheClavier{" +
-                "ligne=" + ligne +
-                ", colonne=" + colonne + "}";
+    private static record ToucheClavier(int ligne, int colonne, Doigts doigt, boolean mainsDroite) implements Touche {
     }
 }
