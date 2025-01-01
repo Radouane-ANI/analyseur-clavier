@@ -3,16 +3,20 @@
  */
 package projet.poo;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+import org.yaml.snakeyaml.Yaml;
 
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         System.out.println(new App().getGreeting());
         GestionnaireFrequences g = new CompteurFrequences("corpus");
         g.calculerFrequences();
@@ -25,24 +29,27 @@ public class App {
             e1.printStackTrace();
         }
 
-       // Création de la map dispositionClavier avec List<Touche>
-        Map<String, List<Touche>> dispositionClavier = Map.of(
-            "A", List.of(
-                new ToucheClavier(1, 2, "Index"), // Touche "a"
-                new ToucheClavier(0, 0, "Auriculaire") // Touche "Shift"
-            ),
-            "a", List.of(
-                new ToucheClavier(1, 2, "Index") // Touche "a"
-            ),
-            ",", List.of(
-                new ToucheClavier(3, 3, "Auriculaire") // Touche ","
-            )
-        );
-
+        // Création de la map dispositionClavier avec List<Touche>
+        Map<String, List<Mouvement>> dispositionClavier = Map.of(
+                "A", List.of(
+                    SequenceToucheFactory.create(ToucheClavierFactory.create(1, 2, Geometry.ABNT)), // Touche "a"
+                    SequenceToucheFactory.create(ToucheClavierFactory.create(0, 0, Geometry.ABNT)) // Touche "Shift"
+                ),
+                "a", List.of(
+                    SequenceToucheFactory.create(SequenceToucheFactory.create(ToucheClavierFactory.create(1, 2, Geometry.ABNT)) // Touche "a"
+                )),
+                ",", List.of(
+                        SequenceToucheFactory.create(ToucheClavierFactory.create(3, 3, Geometry.ABNT) )// Touche ","
+                ));
+        
         // Lecture et traitement du fichier CSV
         String cheminFichier = "frequence.csv"; // Chemin du fichier CSV généré
         System.out.println("Lecture et tri du fichier CSV :");
         LectureEtTraitementCSV traitement = new LectureEtTraitementCSV();
-        traitement.traiterCSV(cheminFichier,dispositionClavier);
+        traitement.traiterCSV(cheminFichier, dispositionClavier);
+        
+        Disposition d = new LectureDispositionClavier("exemple2.toml");
+        d.analyseDisposition();
+
     }
 }

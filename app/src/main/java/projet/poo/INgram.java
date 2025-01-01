@@ -1,7 +1,6 @@
 package projet.poo;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Représente une interface pour les n-grammes, qui sont des séquences
@@ -36,17 +35,22 @@ public interface INgram {
 /**
      * Calcule le coût d'utilisation des touches nécessaires pour saisir cet n-gramme.
      *
-     * @param dispositionClavier Une carte associant chaque caractère à une liste de touches.
      * @return Le coût calculé basé sur le nombre de touches nécessaires pour cet n-gramme.
      */    
-    int calculerCoutTouches(Map<String, List<Touche>> dispositionClavier);
+    int calculerCoutTouches();
 
     /**
      * Retourne la séquence de touches nécessaires pour saisir cet n-gramme.
      *
-     * @param dispositionClavier Une carte associant chaque caractère à une liste de touches.
-     * @return La liste des touches nécessaires pour cet n-gramme.
+     * @return Les differentes liste des touches nécessaires pour cet n-gramme.
      */
-    List<Touche> getSequenceTouches(Map<String, List<Touche>> dispositionClavier);
+    List<Mouvement> getSequenceTouches();
+
+    /**
+     * Retourne la plus petite séquence de touches nécessaires pour saisir cet n-gramme,
+     *
+     * @return Le Mouvement minimales nécessaires pour cet n-gramme.
+     */
+    Mouvement getSequenceTouchesMin();
     
 }

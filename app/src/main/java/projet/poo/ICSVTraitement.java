@@ -11,8 +11,8 @@ import java.util.Map;
 public interface ICSVTraitement {
     /* 
     * @param cheminFichier        Le chemin absolu ou relatif du fichier CSV à traiter.
-    * @param dispositionClavier   Une carte associant chaque caractère à une liste
+    * @param dispositionClavier   Une Map associant chaque caractère à une liste
     *                             d'objets Touche, représentant la disposition du clavier.
     */
-    void traiterCSV(String cheminFichier,Map<String, List<Touche>> dispositionClavier);
+    void traiterCSV(String cheminFichier,Map<String, List<Mouvement>> dispositionClavier);
 }

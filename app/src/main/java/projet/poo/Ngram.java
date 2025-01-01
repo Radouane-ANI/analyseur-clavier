@@ -13,7 +13,7 @@ public class Ngram implements INgram {
     private final String type;
     private final String ngramme;
     private final int valeur;
-
+    private final Map<String, List<Mouvement>> dispositionClavier;
 
     /**
      * Constructeur pour créer un nouvel objet Ngram.
@@ -21,11 +21,13 @@ public class Ngram implements INgram {
      * @param type    Le type de l'n-gramme (par exemple, "bigramme", "trigramme").
      * @param ngramme La séquence de caractères représentant l'n-gramme.
      * @param valeur  La valeur associée à cet n-gramme (sa fréquence).
+     * @param dispositionClavier Une Map associant chaque caractère une liste des mouvements possibles pour l'ecrire.
      */
-    public Ngram(String type, String ngramme, int valeur) {
+    public Ngram(String type, String ngramme, int valeur, Map<String, List<Mouvement>> dispositionClavier) {
         this.type = type;
         this.ngramme = ngramme;
         this.valeur = valeur;
+        this.dispositionClavier = dispositionClavier;
     }
 
     /**
@@ -58,12 +60,15 @@ public class Ngram implements INgram {
     /**
      * Calcule le coût d'utilisation des touches nécessaires pour saisir cet n-gramme.
      *
-     * @param dispositionClavier Une carte associant chaque caractère à une liste de touches.
      * @return Le coût calculé basé sur le nombre de touches nécessaires pour cet n-gramme.
      */
     @Override
-    public int calculerCoutTouches(Map<String, List<Touche>> dispositionClavier) {
-        return getSequenceTouches(dispositionClavier).size(); // Nombre de touches
+    public int calculerCoutTouches() {
+        Mouvement min = getSequenceTouchesMin();
+        if (min == null) {
+            return 0;       
+        }
+        return min.getLongueur(); // Nombre de touches
     }
 
     /**
@@ -73,13 +78,32 @@ public class Ngram implements INgram {
      * @return La liste des touches nécessaires pour cet n-gramme.
      */
     @Override
-    public List<Touche> getSequenceTouches(Map<String, List<Touche>> dispositionClavier) {
-        List<Touche> sequence = new ArrayList<>();
+    public List<Mouvement> getSequenceTouches() {
+        List<Mouvement> sequence = new ArrayList<>();
         for (char c : ngramme.toCharArray()) {
-            List<Touche> touches = dispositionClavier.getOrDefault(String.valueOf(c), new ArrayList<>());
-            sequence.addAll(touches);
+            List<Mouvement> m =new ArrayList<>();
+            List<Mouvement> mouveC = dispositionClavier.getOrDefault(String.valueOf(c), new ArrayList<>());
+            for (Mouvement mouvement : mouveC) {
+                m.add(mouvement);
+            }
+            if (sequence.size()==0) {
+                sequence.addAll(m);
+            }else{
+                sequence = Mouvement.fusionneMouvements(sequence, mouveC);
+            }
         }
         return sequence;
+}
+
+/**
+ * Récupère le mouvement avec la longueur minimale d'une séquence de mouvements.
+ *
+ * @return le mouvement avec la longueur la plus courte, ou null si la séquence est vide.
+ */
+@Override
+public Mouvement getSequenceTouchesMin() {
+    List<Mouvement> sequence = getSequenceTouches();
+    return sequence.stream().min((m1, m2) -> Integer.compare(m1.getLongueur(), m2.getLongueur())).orElse(null);
 }
 
 }

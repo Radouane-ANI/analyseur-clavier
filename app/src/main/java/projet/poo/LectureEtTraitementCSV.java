@@ -30,8 +30,8 @@ public class LectureEtTraitementCSV implements ICSVTraitement {
      * @param dispositionClavier
      */
     @Override
-    public void traiterCSV(String cheminFichier,Map<String, List<Touche>> dispositionClavier) {
-        List<Ngram> ngrammes = new ArrayList<>();
+    public void traiterCSV(String cheminFichier,Map<String, List<Mouvement>> dispositionClavier) {
+        List<INgram> ngrammes = new ArrayList<>();
     
         try (BufferedReader br = new BufferedReader(new FileReader(cheminFichier))) {
             String ligne;
@@ -54,17 +54,17 @@ public class LectureEtTraitementCSV implements ICSVTraitement {
                     String ngramme = parties[1].replace("\"", ""); 
                     int valeur = Integer.parseInt(parties[2].trim());
     
-                    ngrammes.add(new Ngram(type, ngramme, valeur));
+                    ngrammes.add(new Ngram(type, ngramme, valeur,dispositionClavier));
                 }
             }
 
              // Supprimer les n-grammes avec des séquences de touches > 3
-             ngrammes.removeIf(ngram -> ngram.getSequenceTouches(dispositionClavier).size() > 3);
+             ngrammes.removeIf(ngram -> ngram.getSequenceTouches().size() > 3);
 
              // Afficher les n-grammes filtrés
              System.out.println("N-grammes restants après filtrage :");
              for (INgram ngram : ngrammes) {
-                 int coutTouches = ngram.calculerCoutTouches(dispositionClavier);
+                 int coutTouches = ngram.calculerCoutTouches();
                  System.out.println("Type: " + ngram.getType() + ", N-gramme: " + ngram.getNgramme() +
                                     ", Valeur: " + ngram.getValeur() + ", Coût: " + coutTouches);
              } 
