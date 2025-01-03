@@ -6,7 +6,7 @@ public class ToucheClavierFactory {
         validateParameters(ligne, colonne, geometrieClavier);
         Doigts doigt = getDoigt(geometrieClavier, ligne, colonne);
         boolean mainsDroite = isMainsDroite(geometrieClavier, ligne, colonne);
-        return new ToucheClavier(ligne, colonne, doigt, mainsDroite);
+        return new ToucheClavier(ligne, colonne, doigt, mainsDroite, geometrieClavier);
     }
 
     private static void validateParameters(int ligne, int colonne, Geometry geometrieClavier) {
@@ -41,6 +41,6 @@ public class ToucheClavierFactory {
         }
     }
 
-    private static record ToucheClavier(int ligne, int colonne, Doigts doigt, boolean mainsDroite) implements Touche {
+    private static record ToucheClavier(int ligne, int colonne, Doigts doigt, boolean mainsDroite, Geometry geometry) implements Touche {
     }
 }

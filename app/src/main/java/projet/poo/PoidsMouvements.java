@@ -30,4 +30,6 @@ public interface PoidsMouvements {
         }
         return res;
     }
+
+    void fequence1Gram(List<Mouvement> mouv);
 }

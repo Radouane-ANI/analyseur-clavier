@@ -9,4 +9,6 @@ public interface Touche {
     Doigts doigt();
 
     boolean mainsDroite();
+
+    Geometry geometry();
 }
