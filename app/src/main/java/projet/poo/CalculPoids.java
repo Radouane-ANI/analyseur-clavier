@@ -42,8 +42,8 @@ public class CalculPoids implements PoidsMouvements{
         // Calculer l’équilibre entre les mains
         double effortMain = mainDroite ? 50 + ecartRepartition : 50 - ecartRepartition;
     
-        // Note finale : combiner les critères
-        return 10.0 - (effortAcces + ecartRepartition + Math.abs(effortMain - 50) / 10);
+        // Note finale combiner avec tous les critères
+        return 10.0 - (effortAcces + ecartRepartition /2 + Math.abs(effortMain - 50) / 10);
     }
 
     @Override
