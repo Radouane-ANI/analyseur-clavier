@@ -13,7 +13,7 @@ public class Ngram implements INgram {
     private final String type;
     private final String ngramme;
     private final int valeur;
-    private final Map<String, List<Mouvement>> dispositionClavier;
+    private final List<Mouvement> sequenceTouches;
 
     /**
      * Constructeur pour créer un nouvel objet Ngram.
@@ -27,9 +27,36 @@ public class Ngram implements INgram {
         this.type = type;
         this.ngramme = ngramme;
         this.valeur = valeur;
-        this.dispositionClavier = dispositionClavier;
+        this.sequenceTouches = calculSequenceTouches(dispositionClavier);
     }
 
+    /**
+     * Calcule la séquence de mouvements pour le n-gramme donné en fonction de la disposition du clavier.
+     *
+     * @param dispositionClavier Une map représentant la disposition du clavier, où la clé est un caractère
+     *                           et la valeur est une liste de mouvements associés à ce caractère.
+     * @return Une liste de mouvements représentant les séquences de touches pour le n-gramme.
+     */
+    private List<Mouvement> calculSequenceTouches(Map<String, List<Mouvement>> dispositionClavier) {
+        List<Mouvement> sequence = new ArrayList<>();
+        for (char c : ngramme.toCharArray()) {
+            List<Mouvement> m =new ArrayList<>();
+            if (!dispositionClavier.containsKey(String.valueOf(c))) {
+                throw new IllegalArgumentException("Le caractère " + c + " n'est pas dans la disposition du clavier.");
+            }
+            List<Mouvement> mouveC = dispositionClavier.get(String.valueOf(c));
+            for (Mouvement mouvement : mouveC) {
+                m.add(mouvement);
+            }
+            if (sequence.size()==0) {
+                sequence.addAll(m);
+            }else{
+                sequence = Mouvement.fusionneMouvements(sequence, mouveC);
+            }
+        }
+        return sequence;
+    }
+        
     /**
      * Retourne le type de l'n-gramme.
      *
@@ -74,36 +101,31 @@ public class Ngram implements INgram {
     /**
      * Retourne la séquence de touches nécessaires pour saisir cet n-gramme.
      *
-     * @param dispositionClavier Une carte associant chaque caractère à une liste de touches.
      * @return La liste des touches nécessaires pour cet n-gramme.
      */
     @Override
     public List<Mouvement> getSequenceTouches() {
-        List<Mouvement> sequence = new ArrayList<>();
-        for (char c : ngramme.toCharArray()) {
-            List<Mouvement> m =new ArrayList<>();
-            List<Mouvement> mouveC = dispositionClavier.getOrDefault(String.valueOf(c), new ArrayList<>());
-            for (Mouvement mouvement : mouveC) {
-                m.add(mouvement);
-            }
-            if (sequence.size()==0) {
-                sequence.addAll(m);
-            }else{
-                sequence = Mouvement.fusionneMouvements(sequence, mouveC);
-            }
-        }
-        return sequence;
-}
+        return new ArrayList<>(sequenceTouches);
+    }
 
-/**
- * Récupère le mouvement avec la longueur minimale d'une séquence de mouvements.
- *
- * @return le mouvement avec la longueur la plus courte, ou null si la séquence est vide.
- */
-@Override
-public Mouvement getSequenceTouchesMin() {
-    List<Mouvement> sequence = getSequenceTouches();
-    return sequence.stream().min((m1, m2) -> Integer.compare(m1.getLongueur(), m2.getLongueur())).orElse(null);
-}
+    /**
+     * Récupère le mouvement avec la longueur minimale d'une séquence de mouvements.
+     *
+     * @return le mouvement avec la longueur la plus courte, ou null si la séquence est vide.
+     */
+    @Override
+    public Mouvement getSequenceTouchesMin() {
+        List<Mouvement> sequence = getSequenceTouches();
+        return sequence.stream().min((m1, m2) -> Integer.compare(m1.getLongueur(), m2.getLongueur())).orElse(null);
+    }
 
+    /**
+     * Supprime les séquences de mouvements dont la longueur dépasse une valeur maximale.
+     *
+     * @param longueurMax La longueur maximale autorisée pour une séquence de mouvements.
+     */
+    @Override
+    public void supprimeLongueSequence(int longueurMax) {
+        sequenceTouches.removeIf(mouvement -> mouvement.getLongueur() > longueurMax);
+    }
 }

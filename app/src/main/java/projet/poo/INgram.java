@@ -52,5 +52,12 @@ public interface INgram {
      * @return Le Mouvement minimales nécessaires pour cet n-gramme.
      */
     Mouvement getSequenceTouchesMin();
+
+    /**
+     * Supprime les séquences dont la longueur dépasse une certaine limite.
+     *
+     * @param longueurMax la longueur maximale autorisée pour les séquences
+     */
+    void supprimeLongueSequence(int longueurMax);
     
 }

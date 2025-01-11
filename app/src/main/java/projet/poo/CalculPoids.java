@@ -15,7 +15,7 @@ public class CalculPoids implements PoidsMouvements{
 
     @Override
     public double calculLongeur1(Mouvement m) {
-        if (m.getLongueur() != 1) {
+        if (m == null || m.getLongueur() != 1 || m.get(0) == null) {
             throw new IllegalArgumentException("Le mouvement n'est pas de longueur 1.");
         }
     
@@ -50,20 +50,85 @@ public class CalculPoids implements PoidsMouvements{
         double ecartEquilibreMains = Math.abs(effortMain - 50);
 
         // Note finale combiner avec tous les critères
-        double note = Math.max(0.0, 10.0 - (effortAcces + ecartRepartition / 100 + ecartEquilibreMains / 100));
-        return note;
+        double note = Math.max(0.0, 10.0 - (effortAcces + ecartRepartition / 20 + ecartEquilibreMains / 20));
+        return note/10.0;
     }
 
     @Override
     public double calculLongeur2(Mouvement m) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'calculLongeur2'");
+        if (m == null || m.getLongueur() != 2 || m.get(0) == null || m.get(1) == null) {
+            throw new IllegalArgumentException("Le mouvement n'est pas de longueur 2.");
+        }
+        double note = 7.5;
+        // on recupere les information sur la touche
+        Touche touche1 = m.get(0); // Mouvement à une seule touche
+        Touche touche2 = m.get(1); // Mouvement à une seule touche
+        Doigts doigt1 = touche1.doigt();
+        Doigts doigt2 = touche2.doigt();
+        boolean mainDroite1 = touche1.mainsDroite();
+        boolean mainDroite2 = touche2.mainsDroite();
+
+        if (doigt1 == doigt2) {
+            note -= 2.5; // Mouvement à un seul doigt
+        }
+        if (doigt1.getColonneRepos(touche1.geometry(), touche1.ligne(), mainDroite1) != touche1.colonne()
+                || doigt2.getColonneRepos(touche2.geometry(), touche2.ligne(), mainDroite2) != touche2.colonne()) {
+            note -= 2.5; // Mouvement à extension latérale
+        }
+        if (mainDroite1 == mainDroite2) {
+            if (Math.abs(touche1.colonne() - touche2.colonne()) >= 3) {
+                note -= 2.5; // Mouvement de type ciseaux
+            } else if (doigt1 != doigt2 && !(doigt1.getColonneRepos(touche1.geometry(), touche1.ligne(),
+                    mainDroite1) != touche1.colonne()
+                    || doigt2.getColonneRepos(touche2.geometry(), touche2.ligne(), mainDroite2) != touche2.colonne())) {
+                if ((doigt1 == Doigts.AURICULAIRE && doigt2 == Doigts.ANNULAIRE) ||
+                        (doigt1 == Doigts.ANNULAIRE && doigt2 == Doigts.MAJEUR) ||
+                        (doigt1 == Doigts.MAJEUR && doigt2 == Doigts.INDEX)) {
+                    note += 2.5; // Roulement de l'extérieur vers l'intérieur
+                } else {
+                    note += 1.5; // Autres roulements
+                }
+            }
+        } else {
+            note += 2.5; // Alternance main gauche/main droite
+        }
+
+        return note/10.0;
     }
 
     @Override
     public double calculLongeur3(Mouvement m) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'calculLongeur3'");
+        if (m == null || m.getLongueur() != 3 || m.get(0) == null || m.get(1) == null || m.get(2) == null) {
+            throw new IllegalArgumentException("Le mouvement n'est pas de longueur 3.");
+        }
+
+        double note = 10.0;
+        Touche touche1 = m.get(0);
+        Touche touche2 = m.get(1);
+        Touche touche3 = m.get(2);
+        Doigts doigt1 = touche1.doigt();
+        Doigts doigt2 = touche2.doigt();
+        Doigts doigt3 = touche3.doigt();
+        boolean mainDroite1 = touche1.mainsDroite();
+        boolean mainDroite2 = touche2.mainsDroite();
+        boolean mainDroite3 = touche3.mainsDroite();
+
+        if (mainDroite3 == mainDroite1 && mainDroite2 == mainDroite1) {
+            if ((doigt1.ordinal() < doigt2.ordinal() && doigt2.ordinal() > doigt3.ordinal()) ||
+                    (doigt1.ordinal() > doigt2.ordinal() && doigt2.ordinal() < doigt3.ordinal())) {
+                note -= 4.0; // Mauvaises redirections
+            }
+            if (doigt1 != Doigts.INDEX && doigt2 != Doigts.INDEX && doigt3 != Doigts.INDEX) {
+                note -= 2.0; // Mauvaises redirections sans l'index
+            }
+        }
+
+        if (doigt1 == doigt3 && mainDroite1 == mainDroite3) {
+            if (mainDroite3 != mainDroite2) {
+                note -= 4.0; // Skipgrammes
+            }
+        }
+        return note/10.0;
     }
 
     @Override

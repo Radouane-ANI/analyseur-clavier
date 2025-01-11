@@ -11,22 +11,25 @@ public interface PoidsMouvements {
 
     double calculLongeur3(Mouvement m);
 
-    default List<Double> calculerPoids(List<Mouvement> m) {
+    default List<Double> calculerPoids(List<INgram> n) {
         List<Double> res = new ArrayList<>();
-        for (Mouvement mouvement : m) {
-            switch (mouvement.getLongueur()) {
-                case 1:
-                    res.add(calculLongeur1(mouvement));
-                    break;
-                case 2:
-                    res.add(calculLongeur2(mouvement));
-                    break;
-                case 3:
-                    res.add(calculLongeur3(mouvement));
-                    break;
-                default:
-                    res.add(-1.0);
+        for (INgram ngram : n) {
+            for (Mouvement mouvement : ngram.getSequenceTouches()) {
+                switch (mouvement.getLongueur()) {
+                    case 1:
+                        res.add(calculLongeur1(mouvement) * ngram.getValeur());
+                        break;
+                    case 2:
+                        res.add(calculLongeur2(mouvement) * ngram.getValeur());
+                        break;
+                    case 3:
+                        res.add(calculLongeur3(mouvement) * ngram.getValeur());
+                        break;
+                    default:
+                        res.add(-1.0);
+                }
             }
+
         }
         return res;
     }

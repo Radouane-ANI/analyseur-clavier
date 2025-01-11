@@ -32,14 +32,25 @@ public class LectureEtTraitementCSV implements ICSVTraitement {
     @Override
     public void traiterCSV(String cheminFichier,Map<String, List<Mouvement>> dispositionClavier) {
         List<INgram> ngrammes = new ArrayList<>();
-    
+        PoidsMouvements poids = new CalculPoids();
+
         try (BufferedReader br = new BufferedReader(new FileReader(cheminFichier))) {
             String ligne;
             boolean premiereLigne = true;
+            int tailleCorpus = 1;
             boolean enTete = true;
     
             while ((ligne = br.readLine()) != null) {
                 if (premiereLigne) {
+                    String[] headerParts = ligne.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+                    if (headerParts.length < 2) {
+                        throw new IllegalArgumentException("Le fichier CSV a un mauvais format.");
+                    }
+                    try {
+                        tailleCorpus = Integer.parseInt(headerParts[1]);
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("Le deuxième élément de l'entête du fichier csv doit être un entier.", e);
+                    }
                     premiereLigne = false; 
                     continue;
                 }
@@ -51,24 +62,31 @@ public class LectureEtTraitementCSV implements ICSVTraitement {
                 String[] parties = ligne.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
                 if (parties.length == 3) {
                     String type = parties[0];
-                    String ngramme = parties[1].replace("\"", ""); 
+                    String ngramme = parties[1].replace("\"", "");
                     int valeur = Integer.parseInt(parties[2].trim());
-    
-                    ngrammes.add(new Ngram(type, ngramme, valeur,dispositionClavier));
+                    INgram ngram;
+                    try {
+                        ngram = new Ngram(type, ngramme, valeur, dispositionClavier);
+                    } catch (Exception e) {
+                        System.out.println("Le ngramme " + ngramme + " n'a pas pu être créé.");
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
+                    ngrammes.add(ngram);
+                    poids.fequence1Gram(ngram.getSequenceTouches());
+                    ngram.supprimeLongueSequence(3);
                 }
             }
 
-             // Supprimer les n-grammes avec des séquences de touches > 3
-             ngrammes.removeIf(ngram -> ngram.getSequenceTouches().size() > 3);
+            // Supprimer les n-grammes avec que des séquences de touches > 3
+            ngrammes.removeIf(ngram -> ngram.getSequenceTouches().size() == 0);
 
-             // Afficher les n-grammes filtrés
-             System.out.println("N-grammes restants après filtrage :");
-             for (INgram ngram : ngrammes) {
-                 int coutTouches = ngram.calculerCoutTouches();
-                 System.out.println("Type: " + ngram.getType() + ", N-gramme: " + ngram.getNgramme() +
-                                    ", Valeur: " + ngram.getValeur() + ", Coût: " + coutTouches);
-             } 
-    
+            double somme = 0;
+            List<Double> res = poids.calculerPoids(ngrammes);
+            for (Double d : res) {
+                somme += d;
+            }
+            System.out.println("Score du clavier pour ce corpus: " + somme/(double)tailleCorpus);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -17,8 +17,7 @@ public class CalculPoidsTest {
         CalculPoids calculPoids = new CalculPoids();
     
         double note = calculPoids.calculLongeur1(mouvement);
-    
-        assertTrue(note > 8.0, "La note devrait être élevée pour une touche centrale utilisée par l'index.");
+        assertTrue(note > 0.5, "La note devrait être élevée pour une touche centrale utilisée par l'index.");
     }
     
     
@@ -33,7 +32,7 @@ public class CalculPoidsTest {
 
     double note = calculPoids.calculLongeur1(mouvement);
 
-    assertTrue(note < 7.0, "La note devrait être faible pour une touche en rangée supérieure avec l'auriculaire.");
+    assertTrue(note < 0.5, "La note devrait être faible pour une touche en rangée supérieure avec l'auriculaire.");
     }
 
 
@@ -57,11 +56,11 @@ public class CalculPoidsTest {
         });
     }
     
-        @Test
+    @Test
     public void testFequence1Gram() {
-        Touche touche1 = ToucheClavierFactory.create(1, 3, Geometry.ERGO); 
-        Touche touche2 = ToucheClavierFactory.create(1, 3, Geometry.ERGO); 
-        Touche touche3 = ToucheClavierFactory.create(1, 3, Geometry.ERGO); 
+        Touche touche1 = ToucheClavierFactory.create(3, 6, Geometry.ERGO);
+        Touche touche2 = ToucheClavierFactory.create(3, 6, Geometry.ERGO);
+        Touche touche3 = ToucheClavierFactory.create(3, 6, Geometry.ERGO);
 
         Mouvement mouvement1 = SequenceToucheFactory.create(touche1);
         Mouvement mouvement2 = SequenceToucheFactory.create(touche2);
@@ -74,7 +73,7 @@ public class CalculPoidsTest {
 
         double note = calculPoids.calculLongeur1(mouvement1);
 
-        assertTrue(note < 7.0, "La note devrait être faible pour une touche suremployée.");
+        assertTrue(note < 0.5, "La note devrait être faible pour une touche suremployée.");
     }
 
 }

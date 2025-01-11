@@ -67,6 +67,11 @@ public class LectureDispositionClavier implements Disposition {
         List<Mouvement> mouvementsEntr = new ArrayList<>();
         mouvementsEntr.add(SequenceToucheFactory.create(entr));
         sequenceTouche.put("\n", mouvementsEntr);
+
+        Touche tab = ToucheClavierFactory.create(2, 1, geometry);
+        List<Mouvement> mouvementsTab = new ArrayList<>();
+        mouvementsTab.add(SequenceToucheFactory.create(tab));
+        sequenceTouche.put("\t", mouvementsTab);
         if (toml.contains("spacebar")) {
             if (toml.contains("spacebar.shift")) {
                 List<Mouvement> mv = creerMouvements(espc, 0, sequenceTouche.get("shift"));

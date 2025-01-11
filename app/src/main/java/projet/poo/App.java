@@ -10,46 +10,69 @@ import java.util.List;
 import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
+import java.util.Scanner;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-        System.out.println(new App().getGreeting());
-        GestionnaireFrequences g = new CompteurFrequences("corpus");
-        g.calculerFrequences();
-        EcrireCSV e = new FrequenceToCSV(g.getUngramme(), g.getBigramme(), g.getTrigramme(), g.getTailleTotal());
-        System.out.println(g.getUngramme());
-        try {
-            e.ecrisDansCSV();
-        } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Menu:");
+            System.out.println("1. Calculer les fréquences");
+            System.out.println("2. Analyser une disposition clavier");
+            System.out.println("3. Quitter");
+            System.out.println("Choisissez une option: ");
+            int choix = -1;
+            try {
+                choix = scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Veuillez entrer un nombre valide.");
+                scanner.nextLine(); // clear the invalid input
+                continue;
+            }
+            scanner.nextLine();
+
+            try {
+                switch (choix) {
+                    case 1:
+                        System.out.println("Entrez le chemin du corpus: ");
+                        String cheminCorpus = scanner.nextLine();
+                        GestionnaireFrequences g = new CompteurFrequences(cheminCorpus);
+                        g.calculerFrequences();
+                        EcrireCSV e = new FrequenceToCSV(g.getUngramme(), g.getBigramme(), g.getTrigramme(),
+                                g.getTailleTotal());
+                        try {
+                            e.ecrisDansCSV();
+                        } catch (IOException e1) {
+                            System.out.println("Une erreur s'est produits lors de l'ecriture du csv");
+                            System.out.println(e1.getMessage());
+                        }
+                        break;
+                    case 2:
+                        System.out.println("Entrez le chemin du fichier de disposition: ");
+                        String cheminDisposition = scanner.nextLine();
+                        Disposition d = new LectureDispositionClavier(cheminDisposition);
+                        d.analyseDisposition();
+
+                        System.out.println("Entrez le chemin du fichier CSV: ");
+                        String cheminFichier = scanner.nextLine();
+                        System.out.println("Lecture et tri du fichier CSV :");
+                        LectureEtTraitementCSV traitement = new LectureEtTraitementCSV();
+                        System.out.println("Entrez la séquence de touches: ");
+                        traitement.traiterCSV(cheminFichier, d.getSequenceTouche());
+                        break;
+                    case 3:
+                        System.out.println("Au revoir!");
+                        scanner.close();
+                        return;
+                    default:
+                        System.out.println("Option invalide. Veuillez réessayer.");
+                }
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
         }
-
-        // Création de la map dispositionClavier avec List<Touche>
-        Map<String, List<Mouvement>> dispositionClavier = Map.of(
-                "A", List.of(
-                    SequenceToucheFactory.create(ToucheClavierFactory.create(1, 2, Geometry.ABNT)), // Touche "a"
-                    SequenceToucheFactory.create(ToucheClavierFactory.create(0, 0, Geometry.ABNT)) // Touche "Shift"
-                ),
-                "a", List.of(
-                    SequenceToucheFactory.create(SequenceToucheFactory.create(ToucheClavierFactory.create(1, 2, Geometry.ABNT)) // Touche "a"
-                )),
-                ",", List.of(
-                        SequenceToucheFactory.create(ToucheClavierFactory.create(3, 3, Geometry.ABNT) )// Touche ","
-                ));
-        
-        // Lecture et traitement du fichier CSV
-        String cheminFichier = "frequence.csv"; // Chemin du fichier CSV généré
-        System.out.println("Lecture et tri du fichier CSV :");
-        LectureEtTraitementCSV traitement = new LectureEtTraitementCSV();
-        traitement.traiterCSV(cheminFichier, dispositionClavier);
-        
-        Disposition d = new LectureDispositionClavier("exemple2.toml");
-        d.analyseDisposition();
-
     }
 }
