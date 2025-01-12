@@ -12,6 +12,11 @@ import java.util.*;
 public class LectureEtTraitementCSV implements ICSVTraitement {
 
     private String[] extraireParties(String ligne) {
+
+        // Vérification : Ignorer les deux premières lignes
+    if (ligne.startsWith("Taille") || ligne.startsWith("Type,")) {
+        return null; // Retourne null pour indiquer une ligne à ignorer
+    }
         String[] parties = new String[3];
     
         // Trouver les indices des virgules
