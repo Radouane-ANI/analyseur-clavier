@@ -13,6 +13,10 @@ public interface ICSVTraitement {
     * @param cheminFichier        Le chemin absolu ou relatif du fichier CSV à traiter.
     * @param dispositionClavier   Une Map associant chaque caractère à une liste
     *                             d'objets Touche, représentant la disposition du clavier.
+    * @return                     La liste des n-grammes
     */
-    void traiterCSV(String cheminFichier,Map<String, List<Mouvement>> dispositionClavier);
+    List<INgram> traiterCSV(String cheminFichier,Map<String, List<Mouvement>> dispositionClavier);
+
+    int tailleCorpusCSV(String cheminFichier);
+
 }

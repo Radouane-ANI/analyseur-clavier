@@ -30,14 +30,14 @@ Ungramme,"+",42
 Ungramme,",",10337
 Ungramme,"-",2127
 Ungramme,".",10506
-Ungramme,"/",413
 Ungramme," ",6
+Ungramme,"/",413
 Ungramme,"0",5073
 Ungramme,"1",6144
 Ungramme,"2",5776
 Ungramme,"′",4
-Ungramme,"3",4838
 Ungramme,"″",4
+Ungramme,"3",4838
 Ungramme,"4",4723
 Ungramme,"5",4702
 Ungramme,"6",4540
@@ -177,9 +177,9 @@ Bigramme,"	5",2
 Bigramme,"	7",1
 Bigramme,"	8",1
 Bigramme,"	;",3
+Bigramme,"	?",2
 Bigramme,"
  ",345
-Bigramme,"	?",2
 Bigramme,"	@",1
 Bigramme,"	A",699
 Bigramme,"	B",194
@@ -200,9 +200,9 @@ Bigramme,"	L",2056
 Bigramme,"	M",337
 Bigramme,"	N",379
 Bigramme,"	O",196
+Bigramme,"	P",618
 Bigramme,"
 1",1119
-Bigramme,"	P",618
 Bigramme,"
 2",1115
 Bigramme,"	Q",101
@@ -355,8 +355,8 @@ Bigramme,"
 Bigramme,"’â",5
 Bigramme,"’è",1
 Bigramme,"’ê",15
-Bigramme,"’é",166
 Bigramme," –",21
+Bigramme,"’é",166
 Bigramme," —",7
 Bigramme,"’î",1
 Bigramme," ‘",2
@@ -655,15 +655,15 @@ Bigramme,"(J",3
 Bigramme,"),",178
 Bigramme,"(K",3
 Bigramme,"(L",12
-Bigramme,"(M",17
 Bigramme,").",371
+Bigramme,"(M",17
 Bigramme,"'l",2
 Bigramme,")/",1
 Bigramme,"'m",2
 Bigramme,"(N",6
 Bigramme,"(O",3
-Bigramme,"(P",32
 Bigramme,"'o",440
+Bigramme,"(P",32
 Bigramme,"(Q",1
 Bigramme,")3",1
 Bigramme,"(R",12
@@ -675,8 +675,8 @@ Bigramme,"(T",10
 Bigramme,")5",1
 Bigramme,"(U",9
 Bigramme,"'t",3
-Bigramme,"'u",879
 Bigramme,"(V",8
+Bigramme,"'u",879
 Bigramme,"'v",1
 Bigramme,"(X",4
 Bigramme,"(Y",1
@@ -889,8 +889,8 @@ Bigramme,".Q",1
 Bigramme,"/3",4
 Bigramme,".R",6
 Bigramme,"-q",5
-Bigramme,"/4",5
 Bigramme,"-r",24
+Bigramme,"/4",5
 Bigramme,".S",5
 Bigramme,"-s",45
 Bigramme,".T",3
@@ -1134,8 +1134,8 @@ Bigramme,"2i",2
 Bigramme,"4,",49
 Bigramme,"3K",1
 Bigramme,"4-",23
-Bigramme,"3L",1
 Bigramme,"2k",2
+Bigramme,"3L",1
 Bigramme,"4.",28
 Bigramme,"3N",1
 Bigramme,"4/",5
@@ -1514,8 +1514,8 @@ Bigramme,"D ",49
 Bigramme,"C?",1
 Bigramme,"CA",42
 Bigramme,"D""",1
-Bigramme,"Ba",182
 Bigramme,"CB",13
+Bigramme,"Ba",182
 Bigramme,"CC",17
 Bigramme,"CD",18
 Bigramme,"CE",44
@@ -1812,8 +1812,8 @@ Bigramme,"IF",6
 Bigramme,"J'",93
 Bigramme,"IG",13
 Bigramme,"IH",2
-Bigramme,"Dä",1
 Bigramme,"II",107
+Bigramme,"Dä",1
 Bigramme,"Hi",42
 Bigramme,"IK",4
 Bigramme,"IL",18
@@ -1833,8 +1833,8 @@ Bigramme,"IR",26
 Bigramme,"IS",62
 Bigramme,"IT",13
 Bigramme,"IU",3
-Bigramme,"Hu",33
 Bigramme,"IV",20
+Bigramme,"Hu",33
 Bigramme,"IW",1
 Bigramme,"IX",18
 Bigramme,"IY",1
@@ -1899,8 +1899,8 @@ Bigramme,"KK",2
 Bigramme,"L,",6
 Bigramme,"L.",18
 Bigramme,"Fè",1
-Bigramme,"Fé",23
 Bigramme,"Œu",2
+Bigramme,"Fé",23
 Bigramme,"Fê",8
 Bigramme,"KO",5
 Bigramme,"Jn",1
@@ -2176,8 +2176,8 @@ Bigramme,"Ph",71
 Bigramme,"Pi",65
 Bigramme,"R,",13
 Bigramme,"R-",1
-Bigramme,"R.",19
 Bigramme,"Pl",87
+Bigramme,"R.",19
 Bigramme,"QM",1
 Bigramme,"Lè",1
 Bigramme,"Lé",22
@@ -2255,8 +2255,8 @@ Bigramme,"T ",79
 Bigramme,"Mú",1
 Bigramme,"SA",29
 Bigramme,"Ra",110
-Bigramme,"SB",33
 Bigramme,"Mü",1
+Bigramme,"SB",33
 Bigramme,"SC",19
 Bigramme,"SD",8
 Bigramme,"SE",27
@@ -2277,8 +2277,8 @@ Bigramme,"T-",6
 Bigramme,"SM",9
 Bigramme,"T.",14
 Bigramme,"Nè",1
-Bigramme,"Né",20
 Bigramme,"SN",20
+Bigramme,"Né",20
 Bigramme,"SO",19
 Bigramme,"T0",1
 Bigramme,"Ro",154
@@ -2651,8 +2651,8 @@ Bigramme,"as",2902
 Bigramme,"at",5496
 Bigramme,"au",5105
 Bigramme,"d‘",2
-Bigramme,"av",2601
 Bigramme,"d’",675
+Bigramme,"av",2601
 Bigramme,"aw",20
 Bigramme,"ax",93
 Bigramme,"c:",3
@@ -2676,9 +2676,9 @@ Bigramme,"be",769
 Bigramme,"d'",2245
 Bigramme,"cF",1
 Bigramme,"e	",2
+Bigramme,"d)",27
 Bigramme,"e
 ",184
-Bigramme,"d)",27
 Bigramme,"bi",1032
 Bigramme,"d,",136
 Bigramme,"bj",107
@@ -2785,8 +2785,8 @@ Bigramme,"f-",2
 Bigramme,"dl",5
 Bigramme,"eM",4
 Bigramme,"f.",45
-Bigramme,"dm",69
 Bigramme,"eN",4
+Bigramme,"dm",69
 Bigramme,"f/",2
 Bigramme,"eO",1
 Bigramme,"dn",2
@@ -2825,8 +2825,8 @@ Bigramme,"ei",997
 Bigramme,"g+",1
 Bigramme,"g,",32
 Bigramme,"ej",47
-Bigramme,"ek",55
 Bigramme,"aç",88
+Bigramme,"ek",55
 Bigramme,"g-",12
 Bigramme,"el",3731
 Bigramme,"g.",33
@@ -2834,8 +2834,8 @@ Bigramme,"em",4464
 Bigramme,"aé",43
 Bigramme,"g/",4
 Bigramme,"en",16297
-Bigramme,"aë",12
 Bigramme,"eo",57
+Bigramme,"aë",12
 Bigramme,"ep",1095
 Bigramme,"eq",50
 Bigramme,"aî",242
@@ -2863,8 +2863,8 @@ Bigramme,"bà",1
 Bigramme,"fd",1
 Bigramme,"fe",1037
 Bigramme,"h'",1
-Bigramme,"bâ",52
 Bigramme,"ff",1147
+Bigramme,"bâ",52
 Bigramme,"i
 ",13
 Bigramme,"fg",3
@@ -2967,8 +2967,8 @@ Bigramme,"j,",2
 Bigramme,"hk",2
 Bigramme,"j-",1
 Bigramme,"dè",153
-Bigramme,"hl",41
 Bigramme,"eÉ",2
+Bigramme,"hl",41
 Bigramme,"iM",1
 Bigramme,"j.",1
 Bigramme,"dé",2323
@@ -3010,8 +3010,8 @@ Bigramme,"k,",24
 Bigramme,"eç",32
 Bigramme,"ik",80
 Bigramme,"k-",24
-Bigramme,"k.",21
 Bigramme,"il",4514
+Bigramme,"k.",21
 Bigramme,"im",1719
 Bigramme,"eé",1
 Bigramme,"in",7236
@@ -3060,8 +3060,8 @@ Bigramme,"fé",363
 Bigramme,"l/",3
 Bigramme,"jn",3
 Bigramme,"fê",32
-Bigramme,"l1",2
 Bigramme,"jo",1028
+Bigramme,"l1",2
 Bigramme,"l2",1
 Bigramme,"kS",1
 Bigramme,"jr",2
@@ -3099,8 +3099,8 @@ Bigramme,"m-",2
 Bigramme,"m.",65
 Bigramme,"kl",8
 Bigramme,"gè",69
-Bigramme,"km",44
 Bigramme,"lN",1
+Bigramme,"km",44
 Bigramme,"gé",494
 Bigramme,"m/",4
 Bigramme,"kn",2
@@ -3135,13 +3135,13 @@ Bigramme,"n…",3
 Bigramme,"hà",1
 Bigramme,"le",15324
 Bigramme,"n'",408
-Bigramme,"lf",28
 Bigramme,"hâ",47
+Bigramme,"lf",28
 Bigramme,"n(",2
 Bigramme,"o
 ",2
-Bigramme,"n)",52
 Bigramme,"lg",131
+Bigramme,"n)",52
 Bigramme,"lh",36
 Bigramme,"hä",1
 Bigramme,"li",4467
@@ -3209,8 +3209,8 @@ Bigramme,"o-",90
 Bigramme,"iç",3
 Bigramme,"mk",1
 Bigramme,"iè",958
-Bigramme,"ml",9
 Bigramme,"o.",65
+Bigramme,"ml",9
 Bigramme,"nM",1
 Bigramme,"mm",1651
 Bigramme,"ié",527
@@ -3296,8 +3296,8 @@ Bigramme,"oh",50
 Bigramme,"oi",3773
 Bigramme,"oj",169
 Bigramme,"q,",1
-Bigramme,"q-",3
 Bigramme,"ok",82
+Bigramme,"q-",3
 Bigramme,"ol",1776
 Bigramme,"kè",1
 Bigramme,"q.",1
@@ -3346,9 +3346,9 @@ Bigramme,"r+",1
 Bigramme,"r,",636
 Bigramme,"r-",44
 Bigramme,"pk",1
+Bigramme,"r.",598
 Bigramme,"pl",2501
 Bigramme,"lè",274
-Bigramme,"r.",598
 Bigramme,"lé",867
 Bigramme,"r/",4
 Bigramme,"pm",1
@@ -3458,8 +3458,8 @@ Bigramme,"nç",229
 Bigramme,"rk",55
 Bigramme,"sL",1
 Bigramme,"nè",33
-Bigramme,"rl",194
 Bigramme,"t.",743
+Bigramme,"rl",194
 Bigramme,"né",1272
 Bigramme,"rm",1510
 Bigramme,"sN",1
@@ -3471,8 +3471,8 @@ Bigramme,"ro",4508
 Bigramme,"rp",189
 Bigramme,"rq",177
 Bigramme,"ní",1
-Bigramme,"sS",2
 Bigramme,"rr",1479
+Bigramme,"sS",2
 Bigramme,"nî",1
 Bigramme,"rs",3378
 Bigramme,"nï",1
@@ -3514,8 +3514,8 @@ Bigramme,"sj",3
 Bigramme,"u-",41
 Bigramme,"sk",28
 Bigramme,"oç",1
-Bigramme,"u.",128
 Bigramme,"tM",1
+Bigramme,"u.",128
 Bigramme,"sl",57
 Bigramme,"oè",17
 Bigramme,"sm",176
@@ -3566,8 +3566,8 @@ Bigramme,"v-",1
 Bigramme,"pè",105
 Bigramme,"tl",28
 Bigramme,"v.",7
-Bigramme,"pé",833
 Bigramme,"tm",20
+Bigramme,"pé",833
 Bigramme,"v/",1
 Bigramme,"tn",12
 Bigramme,"pê",43
@@ -3653,8 +3653,8 @@ Bigramme,"ré",3321
 Bigramme,"x/",1
 Bigramme,"rê",211
 Bigramme,"vn",1
-Bigramme,"vo",3567
 Bigramme,"x1",2
+Bigramme,"vo",3567
 Bigramme,"x2",4
 Bigramme,"vp",1
 Bigramme,"t®",1
@@ -3720,16 +3720,16 @@ Bigramme,"xh",6
 Bigramme,"xi",302
 Bigramme,"z,",34
 Bigramme,"z-",99
-Bigramme,"tè",202
 Bigramme,"z.",24
+Bigramme,"tè",202
 Bigramme,"xl",1
 Bigramme,"té",3069
 Bigramme,"z/",1
 Bigramme,"yN",1
 Bigramme,"tê",53
 Bigramme,"xo",23
-Bigramme,"xp",386
 Bigramme,"z2",1
+Bigramme,"xp",386
 Bigramme,"xq",11
 Bigramme,"xr",1
 Bigramme,"xs",1
@@ -3750,8 +3750,8 @@ Bigramme,"yi",4
 Bigramme,"yk",3
 Bigramme,"yl",81
 Bigramme,"uè",13
-Bigramme,"ym",113
 Bigramme,"ué",403
+Bigramme,"ym",113
 Bigramme,"yn",84
 Bigramme,"uê",26
 Bigramme,"yo",75
@@ -5947,8 +5947,8 @@ Trigramme,"I'l",1
 Trigramme,"Geo",13
 Trigramme,"Gaë",1
 Trigramme,"Gen",17
-Trigramme,"Ges",6
 Trigramme,"Gaï",1
+Trigramme,"Ges",6
 Trigramme,"Ger",11
 Trigramme,"Gi ",1
 Trigramme,"HIA",2
@@ -7364,9 +7364,9 @@ Trigramme,"	Eq",1
 Trigramme,"	FR",1
 Trigramme,"	Er",2
 Trigramme,"MLV",1
-Trigramme,"	Es",13
 Trigramme,"
 (5",1
+Trigramme,"	Es",13
 Trigramme,"	Et",120
 Trigramme,"	Eu",1
 Trigramme,"	Ev",9
@@ -10851,8 +10851,8 @@ Trigramme,"You",2
 Trigramme,"[2]",1
 Trigramme," ”h",1
 Trigramme,"Ypr",1
-Trigramme,"[3]",1
 Trigramme," † ",1
+Trigramme,"[3]",1
 Trigramme," †1",6
 Trigramme,"[4]",1
 Trigramme," •
@@ -11583,8 +11583,8 @@ Trigramme,"aar",4
 Trigramme,"aat",2
 Trigramme,"émy",1
 Trigramme,"aay",1
-Trigramme,"ad ",19
 Trigramme,"éjà",86
+Trigramme,"ad ",19
 Trigramme,"ac?",1
 Trigramme,"éna",80
 Trigramme,"abb",12
@@ -11664,8 +11664,8 @@ Trigramme,"élè",69
 Trigramme,"adj",16
 Trigramme,"adi",150
 Trigramme,"épr",46
-Trigramme,"épo",212
 Trigramme,"adm",53
+Trigramme,"épo",212
 Trigramme,"épu",57
 Trigramme,"ado",76
 Trigramme,"adr",172
@@ -11813,9 +11813,9 @@ Trigramme,"aic",5
 Trigramme,"aib",30
 Trigramme,"aie",319
 Trigramme,"aid",149
-Trigramme,"aig",43
 Trigramme,"al
 ",7
+Trigramme,"aig",43
 Trigramme,"c.
 ",62
 Trigramme,"ak)",1
@@ -11861,10 +11861,10 @@ Trigramme," 	(",2
 Trigramme,"évi",104
 Trigramme,"c.)",4
 Trigramme,"al)",9
-Trigramme,"al,",73
 Trigramme," 
 
 ",14
+Trigramme,"al,",73
 Trigramme,"c.,",7
 Trigramme,"évo",139
 Trigramme,"aji",3
@@ -11881,8 +11881,8 @@ Trigramme,"érô",3
 Trigramme,"ajr",1
 Trigramme,"c-R",1
 Trigramme," 	3",1
-Trigramme," 	4",1
 Trigramme,"évu",31
+Trigramme," 	4",1
 Trigramme," 	5",2
 Trigramme,"aju",8
 Trigramme," 	7",1
@@ -12008,8 +12008,8 @@ Trigramme,"évè",18
 Trigramme,"anf",4
 Trigramme,"ane",124
 Trigramme,"anh",3
-Trigramme,"ang",481
 Trigramme,"ap)",1
+Trigramme,"ang",481
 Trigramme,"ézi",3
 Trigramme,"anj",3
 Trigramme,"ap,",1
@@ -13108,14 +13108,14 @@ Trigramme,"e 3",102
 Trigramme," 92",1
 Trigramme,"e 6",42
 Trigramme," 93",2
-Trigramme," 94",3
 Trigramme,"e 5",57
+Trigramme," 94",3
 Trigramme,"e 8",35
 Trigramme," 95",7
 Trigramme,"e 7",33
 Trigramme," 96",6
-Trigramme," 97",22
 Trigramme,"e :",183
+Trigramme," 97",22
 Trigramme,"e 9",18
 Trigramme," 99",3
 Trigramme,"e <",1
@@ -13123,8 +13123,8 @@ Trigramme,"e ;",30
 Trigramme,"e @",1
 Trigramme,"e ?",2
 Trigramme,"e! ",1
-Trigramme," : ",790
 Trigramme,"e B",223
+Trigramme," : ",790
 Trigramme,"e A",108
 Trigramme,"e!""",4
 Trigramme,"e D",145
@@ -13404,8 +13404,8 @@ Trigramme,"ch!",1
 Trigramme," BA",7
 Trigramme,"n’e",31
 Trigramme," BB",6
-Trigramme," Ab",17
 Trigramme,"n’o",9
+Trigramme," Ab",17
 Trigramme,"cfc",2
 Trigramme," BC",1
 Trigramme," Ac",14
@@ -13449,8 +13449,8 @@ Trigramme," Ap",15
 Trigramme," BR",2
 Trigramme," Aq",2
 Trigramme," BS",2
-Trigramme," Ar",63
 Trigramme,"e(s",12
+Trigramme," Ar",63
 Trigramme," As",24
 Trigramme," BT",1
 Trigramme," C5",2
@@ -13534,8 +13534,8 @@ Trigramme," DG",2
 Trigramme," E)",13
 Trigramme," DH",2
 Trigramme," Cg",1
-Trigramme," Ch",248
 Trigramme,"chi",350
+Trigramme," Ch",248
 Trigramme," DI",6
 Trigramme," Ci",30
 Trigramme,"chl",8
@@ -13556,8 +13556,8 @@ Trigramme," DO",6
 Trigramme,"ciP",1
 Trigramme," Cn",1
 Trigramme," DP",2
-Trigramme,"chr",28
 Trigramme," Co",382
+Trigramme,"chr",28
 Trigramme," E2",1
 Trigramme,"cht",9
 Trigramme," DR",5
@@ -13651,8 +13651,8 @@ Trigramme," FA",4
 Trigramme,"e-E",2
 Trigramme," Ea",3
 Trigramme," FB",1
-Trigramme," FC",2
 Trigramme," Eb",5
+Trigramme," FC",2
 Trigramme,"e-D",3
 Trigramme,"e,c",1
 Trigramme," Ec",17
@@ -13683,8 +13683,8 @@ Trigramme," El",25
 Trigramme," G.",5
 Trigramme,"e-N",3
 Trigramme," FM",3
-Trigramme," Em",15
 Trigramme,"e.2",1
+Trigramme," Em",15
 Trigramme," FN",4
 Trigramme," Aé",1
 Trigramme," En",71
@@ -13909,8 +13909,8 @@ Trigramme," IS",7
 Trigramme," IT",2
 Trigramme,"ció",1
 Trigramme,"e19",1
-Trigramme," Hu",23
 Trigramme," IV",8
+Trigramme," Hu",23
 Trigramme," IW",1
 Trigramme," IX",3
 Trigramme," Hy",2
@@ -14073,9 +14073,9 @@ Trigramme," MH",3
 Trigramme," Hä",2
 Trigramme," MI",4
 Trigramme," Lh",1
-Trigramme,"e5,",1
 Trigramme," Li",111
 Trigramme,"cs,",15
+Trigramme,"e5,",1
 Trigramme,"e/é",1
 Trigramme," N-",1
 Trigramme,"cs.",14
@@ -14195,8 +14195,8 @@ Trigramme," PM",4
 Trigramme," Q.",1
 Trigramme," PN",3
 Trigramme," Om",2
-Trigramme," On",14
 Trigramme,"cto",90
+Trigramme," On",14
 Trigramme," PO",5
 Trigramme,"ctr",146
 Trigramme," Q1",1
@@ -14239,8 +14239,8 @@ Trigramme,"cum",76
 Trigramme," R,",1
 Trigramme,"cul",383
 Trigramme," Pl",42
-Trigramme," QM",1
 Trigramme," R.",5
+Trigramme," QM",1
 Trigramme,"cun",124
 Trigramme," Lé",18
 Trigramme," QN",1
@@ -14403,8 +14403,8 @@ Trigramme," Tc",7
 Trigramme," UE",1
 Trigramme," Te",80
 Trigramme," Pâ",4
-Trigramme," Th",84
 Trigramme," UI",1
+Trigramme," Th",84
 Trigramme," Ti",28
 Trigramme," På",1
 Trigramme,"cué",1
@@ -14788,8 +14788,8 @@ Trigramme," cC",1
 Trigramme," bc",4
 Trigramme,""" à",6
 Trigramme," d&",1
-Trigramme," be",325
 Trigramme," d'",2181
+Trigramme," be",325
 Trigramme,"dhi",2
 Trigramme,"íUn",1
 Trigramme,"dj-",1
@@ -14900,8 +14900,8 @@ Trigramme," eu",169
 Trigramme," ev",4
 Trigramme," ex",654
 Trigramme," ey",9
-Trigramme," h ",9
 Trigramme,"eMa",3
+Trigramme," h ",9
 Trigramme," c½",1
 Trigramme," fa",1369
 Trigramme,"dle",4
@@ -15195,8 +15195,8 @@ Trigramme,"« G",7
 Trigramme,"« H",3
 Trigramme," pa",3832
 Trigramme,"dve",10
-Trigramme," pb",3
 Trigramme,"« E",7
+Trigramme," pb",3
 Trigramme,"« F",2
 Trigramme,"dvd",2
 Trigramme," là",70
@@ -15220,8 +15220,8 @@ Trigramme," r.",1
 Trigramme,"« S",9
 Trigramme," lè",9
 Trigramme," pl",1562
-Trigramme,"« T",10
 Trigramme," lé",90
+Trigramme,"« T",10
 Trigramme," pn",6
 Trigramme,"« Q",3
 Trigramme," po",3270
@@ -15543,8 +15543,8 @@ Trigramme,"’Is",1
 Trigramme,"’Iv",1
 Trigramme," vô",1
 Trigramme,"eaz",2
-Trigramme,"ed ",57
 Trigramme," sœ",6
+Trigramme,"ed ",57
 Trigramme,"ec?",1
 Trigramme,"ed""",3
 Trigramme,"’Il",1
@@ -15815,8 +15815,8 @@ Trigramme,"elf",5
 Trigramme,"ele",110
 Trigramme,"elh",2
 Trigramme,"""Ge",1
-Trigramme,"en)",9
 Trigramme,"elg",38
+Trigramme,"en)",9
 Trigramme,"en,",49
 Trigramme,"elj",1
 Trigramme,"eli",163
@@ -16044,8 +16044,8 @@ Trigramme,"erz",2
 Trigramme,"ery",4
 Trigramme,"et;",1
 Trigramme,"eu ",425
-Trigramme,"esa",12
 Trigramme,"aïa",2
+Trigramme,"esa",12
 Trigramme,"eu""",1
 Trigramme,"esc",113
 Trigramme,"aïc",5
@@ -16069,8 +16069,8 @@ Trigramme,"eu,",41
 Trigramme,"esm",2
 Trigramme,"aïm",1
 Trigramme,"aïl",4
-Trigramme,"etM",1
 Trigramme,"eu.",35
+Trigramme,"etM",1
 Trigramme,"esl",2
 Trigramme,"eso",87
 Trigramme,"etP",1
@@ -16088,8 +16088,8 @@ Trigramme,"esr",2
 Trigramme,"esu",81
 Trigramme,"’af",11
 Trigramme,"""OS",1
-Trigramme,"’ag",35
 Trigramme,"est",3091
+Trigramme,"’ag",35
 Trigramme,"aït",5
 Trigramme,"aïw",1
 Trigramme,"esv",1
@@ -17775,10 +17775,10 @@ Trigramme,"ide",617
 Trigramme,"' d",4
 Trigramme,"if'",1
 Trigramme,"' e",15
-Trigramme,"idg",3
 Trigramme,"l
 
 ",3
+Trigramme,"idg",3
 Trigramme,"if)",4
 Trigramme,"if,",23
 Trigramme,"idj",3
@@ -17821,8 +17821,8 @@ Trigramme,"iei",18
 Trigramme,"'""I",1
 Trigramme,"ig,",1
 Trigramme,"&B,",1
-Trigramme,"k)/",1
 Trigramme,"iem",31
+Trigramme,"k)/",1
 Trigramme,"iel",280
 Trigramme,"k).",1
 Trigramme,"ig.",2
@@ -17905,10 +17905,10 @@ Trigramme,"ik ",8
 Trigramme,"'' ",1
 Trigramme,"ik""",1
 Trigramme,"ik'",1
-Trigramme,"k.
-",21
 Trigramme,"il
 ",3
+Trigramme,"k.
+",21
 Trigramme,"ik-",2
 Trigramme,"ik,",1
 Trigramme,"ik.",1
@@ -18049,9 +18049,9 @@ Trigramme,"ô!
 Trigramme,"ioe",1
 Trigramme,"iod",71
 Trigramme,"eçà",2
-Trigramme,"iog",24
 Trigramme,"ir
 ",6
+Trigramme,"iog",24
 Trigramme,"ioi",1
 Trigramme,"'.
 ",2
@@ -18503,9 +18503,9 @@ Trigramme,"'Aj",1
 Trigramme,"m
 M",2
 Trigramme,"'Ak",3
+Trigramme,"'Al",42
 Trigramme,"m
 P",1
-Trigramme,"'Al",42
 Trigramme,"'Am",13
 Trigramme,"'An",24
 Trigramme,"u’u",14
@@ -19034,9 +19034,9 @@ Trigramme,"kg,",1
 Trigramme,"kel",11
 Trigramme,"m).",9
 Trigramme,"kg.",2
-Trigramme,"(B.",1
 Trigramme,"n
 1",2
+Trigramme,"(B.",1
 Trigramme,"kaë",1
 Trigramme,"m'o",7
 Trigramme,"ken",23
@@ -19511,8 +19511,8 @@ Trigramme,"n &",6
 Trigramme,"n!
 ",11
 Trigramme,"n )",1
-Trigramme,"n (",79
 Trigramme,"(Ve",1
+Trigramme,"n (",79
 Trigramme,"n +",1
 Trigramme,"n *",1
 Trigramme,"n -",11
@@ -19875,9 +19875,9 @@ Trigramme,"lif",52
 Trigramme,"lie",671
 Trigramme,"(ce",9
 Trigramme,")De",1
-Trigramme,"lig",227
 Trigramme,"ll
 ",1
+Trigramme,"lig",227
 Trigramme,"n.
 ",578
 Trigramme,"(cf",1
@@ -19898,8 +19898,8 @@ Trigramme,"lim",142
 Trigramme,"(cl",3
 Trigramme,"lip",50
 Trigramme,"lio",118
-Trigramme,"lir",69
 Trigramme,"(co",38
+Trigramme,"lir",69
 Trigramme,"n-4",1
 Trigramme,"liq",222
 Trigramme,"lit",677
@@ -20461,8 +20461,8 @@ Trigramme,"mbr",514
 Trigramme,"+ 2",1
 Trigramme,"mbu",13
 Trigramme,"me!",4
-Trigramme,"nF ",2
 Trigramme,"me ",1610
+Trigramme,"nF ",2
 Trigramme,"mca",1
 Trigramme," n’",94
 Trigramme,"me""",6
@@ -20577,8 +20577,8 @@ Trigramme,"o-Q",3
 Trigramme,"o-P",1
 Trigramme,"o-R",1
 Trigramme,"o-W",2
-Trigramme,"ié ",132
 Trigramme,"mm ",16
+Trigramme,"ié ",132
 Trigramme,"iça",1
 Trigramme,"o-a",11
 Trigramme,"o-c",7
@@ -20590,8 +20590,8 @@ Trigramme,"o-i",3
 Trigramme,"mki",1
 Trigramme,"içi",1
 Trigramme,"o-h",2
-Trigramme,"ié,",12
 Trigramme,"o-j",1
+Trigramme,"ié,",12
 Trigramme,"mm,",4
 Trigramme,"o-m",5
 Trigramme,"ié.",11
@@ -20630,8 +20630,8 @@ Trigramme,"ièv",9
 Trigramme,"mo ",11
 Trigramme,"++ ",2
 Trigramme,"mma",203
-Trigramme,"iée",107
 Trigramme,"mme",1079
+Trigramme,"iée",107
 Trigramme,"iéd",2
 Trigramme,"iég",3
 Trigramme,"mmi",36
@@ -20645,8 +20645,8 @@ Trigramme,"mmo",45
 Trigramme,"ién",2
 Trigramme,"iés",92
 Trigramme,"mms",1
-Trigramme,"mmr",1
 Trigramme,"iér",6
+Trigramme,"mmr",1
 Trigramme,"mmu",187
 Trigramme,"iét",155
 Trigramme,"mmt",1
@@ -20908,8 +20908,8 @@ Trigramme,"ne ",4154
 Trigramme,"ne""",12
 Trigramme,"ne!",2
 Trigramme,", @",1
-Trigramme,", A",55
 Trigramme,"nca",54
+Trigramme,", A",55
 Trigramme,"ndB",1
 Trigramme,", B",48
 Trigramme,", C",69
@@ -20925,11 +20925,11 @@ Trigramme,"ne)",27
 Trigramme,", G",22
 Trigramme,", H",13
 Trigramme,"ne,",216
-Trigramme,"nci",266
-Trigramme,", I",25
 Trigramme,"ndJ",1
-Trigramme,"ncl",60
+Trigramme,", I",25
+Trigramme,"nci",266
 Trigramme,"ne.",198
+Trigramme,"ncl",60
 Trigramme,", J",50
 Trigramme,"et…",1
 Trigramme,"ne-",16
@@ -20976,8 +20976,8 @@ Trigramme,"nde",898
 Trigramme,", c",711
 Trigramme,", d",882
 Trigramme,", e",787
-Trigramme,"ndi",463
 Trigramme,", f",108
+Trigramme,"ndi",463
 Trigramme,", g",54
 Trigramme,", h",35
 Trigramme,"neL",1
@@ -20999,8 +20999,8 @@ Trigramme,"nds",95
 Trigramme,"jàs",1
 Trigramme,"ndr",475
 Trigramme,", q",267
-Trigramme,", r",194
 Trigramme,"ndu",207
+Trigramme,", r",194
 Trigramme,", s",594
 Trigramme,"ndt",1
 Trigramme,"ndw",1
@@ -21140,9 +21140,9 @@ Trigramme,"nid",8
 Trigramme,"nic",114
 Trigramme,"nif",101
 Trigramme,"nie",300
-Trigramme,"nig",9
 Trigramme,"p.
 ",25
+Trigramme,"nig",9
 Trigramme,"nk,",1
 Trigramme,"ez…",1
 Trigramme,"nk.",1
@@ -21280,8 +21280,8 @@ Trigramme,"ns ",4384
 Trigramme,"ù f",1
 Trigramme,"ns""",11
 Trigramme,"ns!",1
-Trigramme,"ù e",18
 Trigramme,"(« ",5
+Trigramme,"ù e",18
 Trigramme,"ù d",4
 Trigramme,"ù c",1
 Trigramme,"ù j",7
@@ -21571,8 +21571,8 @@ Trigramme,"od.",2
 Trigramme,"q é",3
 Trigramme,"obo",10
 Trigramme,"- 0",3
-Trigramme,"obr",41
 Trigramme,"- 1",9
+Trigramme,"obr",41
 Trigramme,"- 2",6
 Trigramme,"obt",74
 Trigramme,"- 3",2
@@ -21601,8 +21601,8 @@ Trigramme,"ock",45
 Trigramme,"- I",4
 Trigramme,"- J",2
 Trigramme,"- K",1
-Trigramme,"- L",23
 Trigramme,"ocl",14
+Trigramme,"- L",23
 Trigramme,"- M",7
 Trigramme,"oco",27
 Trigramme,"- N",6
@@ -21610,8 +21610,8 @@ Trigramme,"ocq",1
 Trigramme,"- O",1
 Trigramme,"- P",6
 Trigramme,"ocs",6
-Trigramme,"ocr",27
 Trigramme,"- R",6
+Trigramme,"ocr",27
 Trigramme,"ocu",91
 Trigramme,"- S",5
 Trigramme,"oct",63
@@ -21879,9 +21879,9 @@ N",1
 Trigramme,"'âm",12
 Trigramme,"olp",1
 Trigramme,"on1",1
-Trigramme,"olo",308
 Trigramme,".
 O",1
+Trigramme,"olo",308
 Trigramme,".
 P",1
 Trigramme,"olq",1
@@ -21891,9 +21891,9 @@ Trigramme,"ols",20
 Trigramme,".
 S",3
 Trigramme,"kès",1
-Trigramme,"olv",4
 Trigramme,".
 T",1
+Trigramme,"olv",4
 Trigramme,"olu",214
 Trigramme,"'ât",1
 Trigramme,"olx",1
@@ -21962,8 +21962,8 @@ Trigramme,"or
 ",1
 Trigramme,"oog",12
 Trigramme,"oof",1
-Trigramme,"ook",61
 Trigramme,"oq-",2
+Trigramme,"ook",61
 Trigramme,"oom",7
 Trigramme,"oké",1
 Trigramme,"ool",27
@@ -22101,8 +22101,8 @@ Trigramme,"osp",35
 Trigramme,"-11",2
 Trigramme,"'éo",1
 Trigramme,"-12",3
-Trigramme,"oss",286
 Trigramme,"'ép",48
+Trigramme,"oss",286
 Trigramme,"-13",4
 Trigramme,"'éq",35
 Trigramme,"'ér",2
@@ -22657,8 +22657,8 @@ Trigramme,",ce",1
 Trigramme,"r.
 ",565
 Trigramme,"pig",17
-Trigramme,"pil",60
 Trigramme,"s	É",1
+Trigramme,"pil",60
 Trigramme,"-Di",1
 Trigramme,"pin",67
 Trigramme,"-EN",1
@@ -23283,9 +23283,9 @@ Trigramme,"/ k",1
 Trigramme,".A.",8
 Trigramme,"/ m",4
 Trigramme,"/ s",1
+Trigramme,"s) ",87
 Trigramme,"t
  ",8
-Trigramme,"s) ",87
 Trigramme,"s'a",147
 Trigramme,"s'e",149
 Trigramme,"s'i",81
@@ -23411,8 +23411,8 @@ Trigramme,"s/ ",1
 Trigramme,"0
  ",1
 Trigramme,"mé""",1
-Trigramme,"s-c",18
 Trigramme,"0	A",71
+Trigramme,"s-c",18
 Trigramme,"s-b",2
 Trigramme,"0	B",19
 Trigramme,"0	C",101
@@ -23842,8 +23842,8 @@ Trigramme,"rb.",1
 Trigramme,"mûr",1
 Trigramme,"raW",1
 Trigramme,"t ·",1
-Trigramme,"rc ",45
 Trigramme,"t »",9
+Trigramme,"rc ",45
 Trigramme,"rc""",1
 Trigramme,"rab",115
 Trigramme,"raa",1
@@ -23854,9 +23854,9 @@ Trigramme,"raf",28
 Trigramme,"rae",5
 Trigramme,"rah",17
 Trigramme,"-ze",1
+Trigramme,"rag",206
 Trigramme,"rd
 ",12
-Trigramme,"rag",206
 Trigramme,"raj",20
 Trigramme,"rc,",2
 Trigramme,"rai",946
@@ -23886,16 +23886,16 @@ Trigramme,"rba",40
 Trigramme,"rd""",1
 Trigramme,"0 """,2
 Trigramme,"0 $",2
-Trigramme,"rd'",60
 Trigramme,"rbe",67
+Trigramme,"rd'",60
 Trigramme,"t à",706
 Trigramme,"0 %",18
 Trigramme,"re
 ",46
 Trigramme,"rd)",11
 Trigramme,"t â",2
-Trigramme,"rbi",21
 Trigramme,"0 (",10
+Trigramme,"rbi",21
 Trigramme,"0 )",2
 Trigramme,"0!
 ",1
@@ -24171,8 +24171,8 @@ Trigramme,"rim",158
 Trigramme,"reé",1
 Trigramme,"t'é",1
 Trigramme,"rip",75
-Trigramme,"sJo",1
 Trigramme,"rio",157
+Trigramme,"sJo",1
 Trigramme,"0'0",1
 Trigramme,".co",13
 Trigramme,"rir",168
@@ -24266,8 +24266,8 @@ Trigramme,"0),",3
 Trigramme,"1	K",1
 Trigramme,"t-n",1
 Trigramme,"1	L",204
-Trigramme,"0).",8
 Trigramme,"rgé",42
+Trigramme,"0).",8
 Trigramme,"t-m",3
 Trigramme,"1	M",34
 Trigramme,".el",1
@@ -24316,8 +24316,8 @@ Trigramme,"rli",27
 Trigramme,"rn,",3
 Trigramme,"rhé",3
 Trigramme,"rlo",18
-Trigramme,"rls",2
 Trigramme,"nès",4
+Trigramme,"rls",2
 Trigramme,"t.s",1
 Trigramme,"nèr",6
 Trigramme,".fr",24
@@ -24434,8 +24434,8 @@ Trigramme,"roq",16
 Trigramme,"0-2",2
 Trigramme,"rot",112
 Trigramme,"0-3",2
-Trigramme,"sPs",1
 Trigramme,"ros",167
+Trigramme,"sPs",1
 Trigramme,"0-5",1
 Trigramme,"rov",87
 Trigramme,"rou",729
@@ -24538,8 +24538,8 @@ Trigramme,"004",39
 Trigramme,"005",27
 Trigramme,"006",45
 Trigramme,"007",36
-Trigramme,"rry",15
 Trigramme,"008",47
+Trigramme,"rry",15
 Trigramme,"009",35
 Trigramme,"rt:",2
 Trigramme,"ru ",25
@@ -24602,8 +24602,8 @@ Trigramme,"00e",2
 Trigramme,"03	",99
 Trigramme,"rti",908
 Trigramme,"rth",24
-Trigramme,"rtm",3
 Trigramme,"02,",9
+Trigramme,"rtm",3
 Trigramme,"rpé",6
 Trigramme,"02-",2
 Trigramme,"00k",1
@@ -24999,8 +24999,8 @@ Trigramme,"sca",66
 Trigramme,"se""",11
 Trigramme,"1 @",1
 Trigramme,"1 A",1
-Trigramme,"sce",83
 Trigramme,"1 C",5
+Trigramme,"sce",83
 Trigramme,"1 D",1
 Trigramme,"se)",14
 Trigramme,"1 E",1
@@ -25094,8 +25094,8 @@ Trigramme,"sep",101
 Trigramme,"ses",922
 Trigramme,"saï",3
 Trigramme,"ser",1650
-Trigramme,"seu",247
 Trigramme,"u'u",70
+Trigramme,"seu",247
 Trigramme,"set",17
 Trigramme,"ût ",54
 Trigramme,"sev",3
@@ -25175,11 +25175,11 @@ Trigramme,"sib",254
 Trigramme,"/ca",2
 Trigramme,"sie",242
 Trigramme,"sk'",1
-Trigramme,"sid",138
 Trigramme,"u'à",74
+Trigramme,"sid",138
+Trigramme,"sig",112
 Trigramme,"u.
 ",127
-Trigramme,"sig",112
 Trigramme,"sif",51
 Trigramme,"/ch",2
 Trigramme,"u'é",1
@@ -25202,10 +25202,10 @@ Trigramme,"siz",1
 Trigramme,"u. ",1
 Trigramme,"u-A",1
 Trigramme,"2	""",11
-Trigramme,"1)
-",1
 Trigramme,"2
 
+",1
+Trigramme,"1)
 ",1
 Trigramme,"u-J",1
 Trigramme,"u,l",1
@@ -25464,8 +25464,8 @@ Trigramme,"11,",10
 Trigramme,"11-",1
 Trigramme,"ssl",1
 Trigramme,"su.",1
-Trigramme,"sso",296
 Trigramme,"11.",13
+Trigramme,"sso",296
 Trigramme,"oïn",2
 Trigramme,"11/",5
 Trigramme,"oïq",4
@@ -25496,9 +25496,9 @@ Trigramme,"10e",1
 Trigramme,"/ne",1
 Trigramme,"13	",100
 Trigramme,"stg",1
+Trigramme,"12)",2
 Trigramme,"13
 ",1
-Trigramme,"12)",2
 Trigramme,"11H",1
 Trigramme,"sti",663
 Trigramme,"10h",1
@@ -25527,8 +25527,8 @@ Trigramme,"128",22
 Trigramme,"stw",1
 Trigramme,"129",22
 Trigramme,"stz",1
-Trigramme,"sty",29
 Trigramme,"12:",1
+Trigramme,"sty",29
 Trigramme,"sua",12
 Trigramme,"13 ",61
 Trigramme,"suc",57
@@ -25549,8 +25549,8 @@ Trigramme,"11h",2
 Trigramme,"suj",33
 Trigramme,"sum",23
 Trigramme,"13,",10
-Trigramme,"sul",148
 Trigramme,"13-",3
+Trigramme,"sul",148
 Trigramme,"13.",21
 Trigramme,"sun",4
 Trigramme,"13/",2
@@ -26062,9 +26062,9 @@ Trigramme,"v.f",1
 Trigramme,"tli",3
 Trigramme,"thé",128
 Trigramme,"pèl",3
-Trigramme,"thè",83
 Trigramme,"3
 L",1
+Trigramme,"thè",83
 Trigramme,"tlo",2
 Trigramme,"0h0",1
 Trigramme,"0h1",1
@@ -26141,8 +26141,8 @@ Trigramme,"tom",125
 Trigramme,"top",28
 Trigramme,"2-0",4
 Trigramme,"too",4
-Trigramme,"tor",166
 Trigramme,"2-1",4
+Trigramme,"tor",166
 Trigramme,"2-2",9
 Trigramme,"2-3",4
 Trigramme,"tot",70
@@ -26223,8 +26223,8 @@ Trigramme,"204",20
 Trigramme,"tru",244
 Trigramme,"tsV",1
 Trigramme,"205",21
-Trigramme,"-Ét",1
 Trigramme,"206",21
+Trigramme,"-Ét",1
 Trigramme,"207",23
 Trigramme,"208",21
 Trigramme,"try",6
@@ -26701,8 +26701,8 @@ Trigramme,"»,l",1
 Trigramme,"udj",2
 Trigramme,"3 g",1
 Trigramme,"uf,",3
-Trigramme,"3 h",8
 Trigramme,"udi",194
+Trigramme,"3 h",8
 Trigramme,"uf.",1
 Trigramme,"3 i",5
 Trigramme,"3 j",17
@@ -26838,9 +26838,9 @@ Trigramme,"ul.",8
 Trigramme,"ul-",1
 Trigramme,"ujo",222
 Trigramme,"um ",84
-Trigramme,"3) ",17
 Trigramme,"4
  ",1
+Trigramme,"3) ",17
 Trigramme,"uka",4
 Trigramme,"um""",1
 Trigramme,"4	A",69
@@ -27028,8 +27028,8 @@ Trigramme,"upg",1
 Trigramme,"ur,",175
 Trigramme,"upi",17
 Trigramme,"ur+",1
-Trigramme,"ur.",167
 Trigramme,"upl",56
+Trigramme,"ur.",167
 Trigramme,"ulè",2
 Trigramme,"ur-",18
 Trigramme,"ulé",56
@@ -27586,9 +27586,9 @@ Trigramme,"vid",129
 Trigramme,"vic",363
 Trigramme,"vif",5
 Trigramme,"vie",524
+Trigramme,"vig",56
 Trigramme,"x.
 ",159
-Trigramme,"vig",56
 Trigramme,"2e)",1
 Trigramme,"vil",228
 Trigramme,"vin",100
@@ -27689,9 +27689,9 @@ Trigramme,"vlo",1
 Trigramme,"2h.",4
 Trigramme,"rèn",5
 Trigramme,"2h0",2
+Trigramme,"rès",670
 Trigramme,"5
 Q",1
-Trigramme,"rès",670
 Trigramme,"2h3",5
 Trigramme,"rèr",32
 Trigramme,"rèt",12
@@ -28758,9 +28758,9 @@ Trigramme,"xo-",1
 Trigramme,"tén",5
 Trigramme,"tém",32
 Trigramme,"xié",1
+Trigramme,"5Dé",1
 Trigramme,"7
 m",1
-Trigramme,"5Dé",1
 Trigramme,"tép",3
 Trigramme,"téo",14
 Trigramme,"tér",330
@@ -29981,11 +29981,11 @@ Trigramme,"9 è",1
 Trigramme,"7e ",5
 Trigramme,"7cm",1
 Trigramme,"7da",1
-Trigramme,"9)
-",2
 Trigramme,":
 
 ",12
+Trigramme,"9)
+",2
 Trigramme,":
  ",4
 Trigramme,"9) ",7

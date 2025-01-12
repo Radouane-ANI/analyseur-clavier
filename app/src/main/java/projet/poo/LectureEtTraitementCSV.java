@@ -3,6 +3,9 @@ package projet.poo;
 import java.io.*;
 import java.util.*;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+
 /**
  * Classe permettant de lire et traiter un fichier CSV contenant des informations sur les n-grammes.
  * Implémente l'interface ICSVTraitement.
@@ -11,48 +14,35 @@ import java.util.*;
  */
 public class LectureEtTraitementCSV implements ICSVTraitement {
 
-    private String[] extraireParties(String ligne) {
-        String[] parties = new String[3];
-    
-        // Trouver les indices des virgules
-        int premiereVirgule = ligne.indexOf(',');
-        int derniereVirgule = ligne.lastIndexOf(',');
+    /**
+     * Vérifie si une ligne est bien formé.
+     *
+     * @param parties Un tableau de taille 3 contenant [type, ngramme, valeur].
+     * @return true si le tableau est bien formé, lève une exception sinon.
+     */
+    private boolean valideParties(String[] parties) {
+        // Vérifier que le tableau contient exactement 3 éléments
+        if (parties == null || parties.length != 3) {
+            return false;
+        }
 
-         // Vérification : S'assurer que les indices sont valides
-        if (premiereVirgule == -1 || derniereVirgule == -1 || premiereVirgule == derniereVirgule) {
-            throw new IllegalArgumentException("La ligne est mal formatée : " + ligne);
-        }
-    
-        // Extraire chaque partie
-        String type = ligne.substring(0, premiereVirgule).trim();
-        String ngramme = ligne.substring(premiereVirgule + 1, derniereVirgule).trim();
-        String valeur = ligne.substring(derniereVirgule + 1).trim();
-    
+        // Extraire les éléments
+        String type = parties[0].trim();
+        String valeur = parties[2].trim();
+
         // Validation du type
-        if (!type.equals("ungramme") && !type.equals("bigramme") && !type.equals("trigramme")) {
-            throw new IllegalArgumentException("Type invalide : " + type);
+        if (!type.equals("Ungramme") && !type.equals("Bigramme") && !type.equals("Trigramme")) {
+            return false;
         }
-    
-        // Supprimer les guillemets et enlever 2 caractères devant et derrière
-        if (ngramme.length() >= 2 && ngramme.startsWith("\"") && ngramme.endsWith("\"")) {
-            ngramme = ngramme.substring(1, ngramme.length() - 1);
-        } else {
-            throw new IllegalArgumentException("Ngramme mal formaté : " + ngramme);
-        }
-    
-        // Validation de la valeur (doit être une suite de chiffres)
+
+        // Validation de la valeur : doit être composée uniquement de chiffres
         if (!valeur.matches("\\d+")) {
-            throw new IllegalArgumentException("Valeur invalide : " + valeur);
+            return false;
         }
-    
-        // Attribuer les parties validées
-        parties[0] = type;      // Type
-        parties[1] = ngramme;   // Ngramme
-        parties[2] = valeur;    // Valeur
-    
-        return parties;
-    }
-    
+
+        // Si toutes les validations passent, le tableau est bien formé
+        return true;
+    }    
     
     /**
      * Lit un fichier CSV et effectue un traitement sur les n-grammes qu'il contient.
@@ -71,28 +61,22 @@ public class LectureEtTraitementCSV implements ICSVTraitement {
      *
      * @param cheminFichier
      * @param dispositionClavier
+     * 
+     * @return La liste des n-grammes
      */
     @Override
-    public void traiterCSV(String cheminFichier,Map<String, List<Mouvement>> dispositionClavier) {
+    public List<INgram> traiterCSV(String cheminFichier,Map<String, List<Mouvement>> dispositionClavier) {
         List<INgram> ngrammes = new ArrayList<>();
-        PoidsMouvements poids = new CalculPoids();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(cheminFichier))) {
-            String ligne;
+        try (CSVReader reader = new CSVReader(new FileReader(cheminFichier))) {
+            String[] ligne;
             boolean premiereLigne = true;
-            int tailleCorpus = 1;
             boolean enTete = true;
     
-            while ((ligne = br.readLine()) != null) {
+            while ((ligne = reader.readNext()) != null) {
                 if (premiereLigne) {
-                    String[] headerParts = extraireParties(ligne);
-                    if (headerParts.length < 2) {
+                    if (ligne.length < 2) {
                         throw new IllegalArgumentException("Le fichier CSV a un mauvais format.");
-                    }
-                    try {
-                        tailleCorpus = Integer.parseInt(headerParts[1]);
-                    } catch (NumberFormatException e) {
-                        throw new IllegalArgumentException("Le deuxième élément de l'entête du fichier csv doit être un entier.", e);
                     }
                     premiereLigne = false; 
                     continue;
@@ -102,21 +86,21 @@ public class LectureEtTraitementCSV implements ICSVTraitement {
                     continue;
                 }
     
-                String[] parties = extraireParties(ligne);
-                if (parties.length == 3) {
-                    String type = parties[0];
-                    String ngramme = parties[1].replace("\"", "");
-                    int valeur = Integer.parseInt(parties[2].trim());
+                if (!valideParties(ligne)) {
+                    throw new IllegalArgumentException("Le fichier CSV a un mauvais format.");
+                }
+                if (ligne.length == 3) {
+                    String ngramme = ligne[1].replace("\"", "");
+                    int valeur = Integer.parseInt(ligne[2].trim());
                     INgram ngram;
                     try {
-                        ngram = new Ngram(type, ngramme, valeur, dispositionClavier);
+                        ngram = new Ngram(ngramme, valeur, dispositionClavier);
                     } catch (Exception e) {
                         System.out.println("Le ngramme " + ngramme + " n'a pas pu être créé.");
                         System.out.println(e.getMessage());
                         continue;
                     }
                     ngrammes.add(ngram);
-                    poids.fequence1Gram(ngram.getSequenceTouches());
                     ngram.supprimeLongueSequence(3);
                 }
             }
@@ -124,15 +108,51 @@ public class LectureEtTraitementCSV implements ICSVTraitement {
             // Supprimer les n-grammes avec que des séquences de touches > 3
             ngrammes.removeIf(ngram -> ngram.getSequenceTouches().size() == 0);
 
-            double somme = 0;
-            List<Double> res = poids.calculerPoids(ngrammes);
-            for (Double d : res) {
-                somme += d;
+        } catch (IOException | CsvValidationException e) {
+            e.printStackTrace();
+        }
+        return ngrammes;
+    }
+
+
+    /**
+     * Donne la taille du corpus en lisant un fichier CSV.
+     *
+     * @param cheminFichier le chemin du fichier CSV contenant le corpus.
+     * @return la taille du corpus extraite du deuxième élément de l'en-tête du
+     *         fichier CSV.
+     * @throws IllegalArgumentException si le fichier est null, mal formaté, ou si
+     *                                  la taille du corpus
+     *                                  n'est pas un entier valide.
+     */
+    @Override
+    public int tailleCorpusCSV(String cheminFichier) {
+        if (cheminFichier == null) {
+            throw new IllegalArgumentException("Le fichier CSV a un mauvais format.");
+        }
+        int tailleCorpus = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(cheminFichier))) {
+            String ligne = br.readLine();
+            if (ligne == null) {
+                throw new IllegalArgumentException("Le fichier CSV a un mauvais format.");
             }
-            System.out.println("Score du clavier pour ce corpus: " + somme/(double)tailleCorpus);
+
+            String[] headerParts = ligne.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+            if (headerParts.length < 2) {
+                throw new IllegalArgumentException("Le fichier CSV a un mauvais format.");
+            }
+
+            try {
+                tailleCorpus = Integer.parseInt(headerParts[1]);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException(
+                        "Le deuxième élément de l'entête du fichier csv doit être un entier.", e);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return tailleCorpus;
     }
 
 }

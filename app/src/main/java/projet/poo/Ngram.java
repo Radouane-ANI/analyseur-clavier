@@ -10,7 +10,6 @@ import java.util.Map;
  * et obtenir la séquence de touches associées sur un clavier.
  */
 public class Ngram implements INgram {
-    private final String type;
     private final String ngramme;
     private final int valeur;
     private final List<Mouvement> sequenceTouches;
@@ -18,13 +17,11 @@ public class Ngram implements INgram {
     /**
      * Constructeur pour créer un nouvel objet Ngram.
      *
-     * @param type    Le type de l'n-gramme (par exemple, "bigramme", "trigramme").
      * @param ngramme La séquence de caractères représentant l'n-gramme.
      * @param valeur  La valeur associée à cet n-gramme (sa fréquence).
      * @param dispositionClavier Une Map associant chaque caractère une liste des mouvements possibles pour l'ecrire.
      */
-    public Ngram(String type, String ngramme, int valeur, Map<String, List<Mouvement>> dispositionClavier) {
-        this.type = type;
+    public Ngram(String ngramme, int valeur, Map<String, List<Mouvement>> dispositionClavier) {
         this.ngramme = ngramme;
         this.valeur = valeur;
         this.sequenceTouches = calculSequenceTouches(dispositionClavier);
@@ -63,7 +60,17 @@ public class Ngram implements INgram {
      * @return Le type de l'n-gramme (par exemple, "bigramme").
      */
     public String getType() {
-        return type;
+        int longueur = getSequenceTouchesMin().getLongueur();
+        switch (longueur) {
+            case 1:
+            return "unigramme";
+            case 2:
+            return "bigramme";
+            case 3:
+            return "trigramme";
+            default:
+            return longueur + "gramme";
+        }
     }
 
     /**

@@ -3,13 +3,6 @@
  */
 package projet.poo;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import org.yaml.snakeyaml.Yaml;
 import java.util.Scanner;
 
 public class App {
@@ -32,46 +25,21 @@ public class App {
             }
             scanner.nextLine();
 
-            try {
-                switch (choix) {
-                    case 1:
-                        System.out.println("Entrez le chemin du corpus: ");
-                        String cheminCorpus = scanner.nextLine();
-                        GestionnaireFrequences g = new CompteurFrequences(cheminCorpus);
-                        g.calculerFrequences();
-                        EcrireCSV e = new FrequenceToCSV(g.getUngramme(), g.getBigramme(), g.getTrigramme(),
-                                g.getTailleTotal());
-                        try {
-                            e.ecrisDansCSV();
-                        } catch (IOException e1) {
-                            System.out.println("Une erreur s'est produits lors de l'ecriture du csv");
-                            System.out.println(e1.getMessage());
-                        }
-                        break;
-                    case 2:
-                        System.out.println("Entrez le chemin du fichier de disposition: ");
-                        String cheminDisposition = scanner.nextLine();
-                        Disposition d = new LectureDispositionClavier(cheminDisposition);
-                        d.analyseDisposition();
-
-                        System.out.println("Entrez le chemin du fichier CSV: ");
-                        String cheminFichier = scanner.nextLine();
-                        System.out.println("Lecture et tri du fichier CSV :");
-                        LectureEtTraitementCSV traitement = new LectureEtTraitementCSV();
-                        System.out.println("Entrez la séquence de touches: ");
-                        traitement.traiterCSV(cheminFichier, d.getSequenceTouche());
-                        break;
-                    case 3:
-                        System.out.println("Au revoir!");
-                        scanner.close();
-                        return;
-                    default:
-                        System.out.println("Option invalide. Veuillez réessayer.");
-                }
-
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                continue;
+            switch (choix) {
+                case 1:
+                    Logicel a = new AnalyseurCorpus();
+                    a.exec();
+                    break;
+                case 2:
+                    Logicel e = new EvaluateurDisposition();
+                    e.exec();
+                    break;
+                case 3:
+                    System.out.println("Au revoir!");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Option invalide. Veuillez réessayer.");
             }
         }
     }
