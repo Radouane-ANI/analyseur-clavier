@@ -1,93 +1,150 @@
-# projet poo
+**Binôme :**
 
+- **Étudiant 1 :** AOUINI, Radouane
+- **Étudiant 2 :** CHIOUKH, Sami
 
+## Instructions pour l'exécution
 
-## Getting started
+### Compilation et exécution
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Le projet utilise Gradle pour la gestion des dépendances, la compilation et l'exécution. Les commandes suivantes permettent de compiler et d'exécuter le projet :
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+**Bash :**
 
 ```
-cd existing_repo
-git remote add origin https://moule.informatique.univ-paris-diderot.fr/aouini/projet-poo.git
-git branch -M main
-git push -uf origin main
+./gradlew build # Compile le projet. 
+./gradlew run # Exécute le projet. 
+./gradlew test # Exécute tous les tests unitaires du projet.
 ```
 
-## Integrate with your tools
+**Windows :**
 
-- [ ] [Set up project integrations](https://moule.informatique.univ-paris-diderot.fr/aouini/projet-poo/-/settings/integrations)
+```
+gradlew.bat build # Compiler 
+gradlew.bat run # Exécuter 
+gradlew.bat test # Tests
+```
 
-## Collaborate with your team
+### Structure des fichiers et configuration
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+Le programme peut nécessiter des fichiers de configuration (par exemple, les fichiers TOML pour les dispositions, le repertoires contenants les fichiers textes du corpus). Vous pouvez spécifier le chemin absolu de ces fichiers lors de l'exécution du programme, ou les placer dans le répertoire `app` du projet et donner seulement leurs noms.
 
-## Test and Deploy
+---
 
-Use the built-in continuous integration in GitLab.
+# Rapport de projet
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+## Compléments en Programmation Orientée Objet
 
-***
+**Projet :** Analyseur de texte et évaluateur de disposition clavier
 
-# Editing this README
+---
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## Introduction
 
-## Suggestions for a good README
+Ce document présente le travail réalisé pour le projet "Analyseur de texte et optimisateur de disposition clavier". Le projet a été réalisé en Java (version 21), avec une attention particulière portée à la modularité et la programmation orientée objet (POO). Nous avons structuré le développement en deux parties principales :
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+1. **Analyseur de fréquence de suites de caractères (n-grammes) dans un corpus de texte.**
+2. **Évaluateur de disposition clavier basé sur les données générées par l'analyseur.**
 
-## Name
-Choose a self-explaining name for your project.
+---
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## Fonctionnalités Implémentées
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+### Partie 1 : Analyseur de fréquence de n-grammes
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+#### Objectif
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+L'objectif de cette partie est d'analyser des fichiers texte afin d'extraire les statistiques de fréquence des n-grammes (ungrammes, bigrammes et trigrammes) et de sauvegarder les résultats dans un fichier CSV.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+#### Méthodologie
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Pour optimiser les performances, chaque fichier texte du corpus est traité par un thread distinct, permettant ainsi une analyse en parallèle. Les résultats de chaque thread sont ensuite fusionnés dans trois `ConcurrentHashMap` partagées, une pour chaque type de n-gramme (ungrammes, bigrammes et trigrammes). L'utilisation de `ConcurrentHashMap` assure la sécurité des données lors des accès concurrents.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+#### Résultat final
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Les statistiques sont exportées dans un fichier CSV contenant les colonnes suivantes :
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+- **Taille** : Le nombre total de caractères du corpus analysé.
+- **Type** : Le type de n-gramme (unigramme, bigramme ou trigramme).
+- **N-gramme** : La séquence de caractères constituant le n-gramme.
+- **Fréquence** : Le nombre d'occurrences du n-gramme dans le corpus.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+**Exemple de sortie CSV :**
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+```
+Taille,3195 
+Type,N-gramme,Fréquence 
+Unigramme,"!",12 
+Bigramme,"ag",3 
+Trigramme,"key",1
+```
 
-## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+#### Réalisation technique
+
+- **Lecture des fichiers :** La lecture de chaque fichier texte est effectuée ligne par ligne afin d'optimiser la gestion de la mémoire, notamment pour les fichiers volumineux.
+- **Gestion du parallélisme :** L'API `java.util.concurrent` est utilisée pour la gestion des threads, avec l'emploi de `ConcurrentHashMap` pour le stockage thread-safe des résultats intermédiaires.
+- **Tests unitaires :** Des tests unitaires ont été implémentés pour assurer la correction du calcul des fréquences de n-grammes, la gestion des fichiers et le bon fonctionnement du parallélisme. Ces tests couvrent la majorité des cas d'utilisation et permettent de détecter les régressions lors des modifications du code.
+- **Javadoc :** Une documentation Javadoc a été écrite pour l'ensemble des classes et des méthodes, facilitant la compréhension et la maintenance du code.
+
+---
+
+### Partie 2 : Évaluateur de disposition clavier
+
+#### Objectif
+
+Cette partie a pour objectif d'évaluer une disposition de clavier en se basant sur les statistiques de fréquence des n-grammes obtenues lors de la première phase (l'analyseur) et en tenant compte de critères ergonomiques prédéfinis.
+
+#### Méthodologie
+
+L'évaluation d'une disposition clavier s'effectue selon les étapes suivantes :
+
+1. **Lecture de la disposition et de la géométrie du clavier (format TOML) :** Nous utilisons le format TOML, et plus précisément le format Kalamine, pour définir la disposition et la géométrie du clavier. Ce choix est motivé par sa large compatibilité, assurant une portabilité maximale et s'intégrant bien avec l'environnement Java.
+2. **Gestion des touches mortes (dead keys) et des touches mortes personnalisées (custom dead keys) :** Une attention particulière est accordée à la gestion des touches nécessitant des séquences complexes, comme celles impliquant la touche Maj (Shift) combinée avec d'autres touches (par exemple, Shift + ^ pour obtenir un accent circonflexe). Un fichier YAML est utilisé pour stocker et gérer l'ensemble des combinaisons de touches mortes possibles.
+3. **Lecture des données d'analyse (fichier CSV) :** Le fichier CSV généré par l'analyseur de fréquence de n-grammes (Partie 1) est lu pour récupérer les données statistiques nécessaires à l'évaluation.
+4. **Calcul de la note globale :** Un algorithme calcule une note globale pour la disposition clavier en utilisant les fréquences des n-grammes et en appliquant des pondérations à différents critères ergonomiques. Ces critères incluent :
+   - **Équilibre des mains :** Distribution de la frappe entre la main gauche et la main droite.
+   - **Roulements :** Séquences de frappe alternant entre les doigts et les mains pour minimiser la fatigue.
+   - **Minimisation des mouvements latéraux et verticaux :** Distances parcourues par les doigts entre les touches.
+   - **Autres critères pertinents** (par exemple, utilisation des doigts les plus forts, positionnement des touches fréquentes sur la rangée de repos).
+
+#### Résultat final
+
+Le programme fournit une évaluation numérique globale pour chaque disposition de clavier analysée, permettant ainsi de comparer objectivement différentes configurations.
+
+#### Réalisation technique
+
+- **Dépendances utilisées :**
+  - `com.moandjiezana.toml:toml4j:0.7.2` : pour la lecture des fichiers TOML.
+  - `org.yaml:snakeyaml:2.0` : pour la lecture des fichiers YAML (gestion des touches mortes).
+  - `com.opencsv:opencsv:5.7.1` : pour la lecture des fichiers CSV (données d'analyse).
+- **Tests unitaires :** Des tests unitaires ont été écrits pour vérifier la justesse du calcul des coûts de mouvement, la gestion des touches mortes et l'intégration des données provenant de l'analyseur de n-grammes.
+- **Javadoc :** Une documentation Javadoc a été écrite pour l'ensemble des classes et des méthodes, facilitant la compréhension et la maintenance du code.
+
+---
+
+### Partie 3 (non réalisée) : Optimisation de disposition clavier
+
+Pour des raisons de temps, la partie concernant l'optimisation des dispositions clavier à l'aide d'un algorithme génétique n'a pas été implémentée dans le cadre de ce projet. Cette partie aurait eu pour but de générer automatiquement des dispositions de clavier optimisées en fonction des données d'analyse et des critères ergonomiques définis.
+
+---
+
+## Conclusion
+
+Malgré l'absence de la partie optimisation, le projet atteint ses objectifs principaux en fournissant :
+
+- Une analyse efficace et performante des fréquences de n-grammes dans des corpus textuels.
+- Une évaluation des dispositions de clavier existantes, basée sur des critères ergonomiques et les données d'analyse.
+
+### Points forts
+
+- **Modularité du code :** L'architecture du projet favorise la réutilisation et la maintenance du code grâce à une conception modulaire.
+- **Parallélisation efficace dans la Partie 1 :** L'utilisation de threads et de structures de données concurrentes permet une analyse rapide et efficace des corpus, même volumineux.
+- **Utilisation de bibliothèques standard et reconnues :** L'intégration de bibliothèques telles que toml4j, snakeyaml et opencsv simplifie les tâches courantes et assure la robustesse du code.
+- **Méthode d'évaluation précise :** L'approche basée sur le calcul du coût des mouvements pondéré par la fréquence des n-grammes offre une évaluation plus fine et plus pertinente que l'utilisation de simples pondérations arbitraires.
+
+### Limites et axes d'amélioration
+
+- **Implémentation de la Partie 3 (optimiseur de disposition clavier) :** L'implémentation de l'algorithme génétique pour l'optimisation des dispositions constitue une extension majeure et prioritaire pour les développements futurs.
+- **Amélioration de l'interface utilisateur :** Une interface graphique ou un fichier de sortie plus détaillé (par exemple, un rapport HTML) pourrait améliorer significativement l'expérience utilisateur en rendant les résultats plus accessibles et plus interprétables.
+- **Gestion plus fine des critères ergonomiques :** L'ajout de critères ergonomiques plus spécifiques et la possibilité de les configurer plus finement permettraient une évaluation encore plus précise des dispositions.
