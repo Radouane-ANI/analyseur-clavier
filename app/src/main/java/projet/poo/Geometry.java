@@ -3,6 +3,11 @@ package projet.poo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Enumération représentant les différentes géométries de clavier.
+ * Chaque géométrie a ses spécificités concernant les positions des touches
+ * comme Shift, AltGr, Espace, et Entrée.
+ */
 public enum Geometry {
     ANSI,
     ISO,
@@ -11,6 +16,11 @@ public enum Geometry {
     ALT,
     ERGO;
 
+     /**
+     * Obtient les positions des touches Shift pour la géométrie actuelle.
+     *
+     * @return une liste des touches Shift pour cette géométrie.
+     */
     List<Touche> getPosShift() {
         List<Touche> posShift = new ArrayList<>();
         if (this != ERGO)
@@ -40,6 +50,11 @@ public enum Geometry {
         return posShift;
     }
 
+    /**
+     * Obtient la touche AltGr pour la géométrie actuelle.
+     *
+     * @return la touche AltGr.
+     */
     Touche getAltgr() {
         if (this == JIS) {
             return ToucheClavierFactory.create(5, 8, this);
@@ -47,6 +62,11 @@ public enum Geometry {
         return ToucheClavierFactory.create(5, 5, this);
     }
 
+    /**
+     * Obtient la touche Espace pour la géométrie actuelle.
+     *
+     * @return la touche Espace.
+     */
     Touche getEsp() {
         if (this == JIS) {
             return ToucheClavierFactory.create(5, 5, this);
@@ -54,6 +74,11 @@ public enum Geometry {
         return ToucheClavierFactory.create(5, 4, this);
     }
 
+    /**
+     * Obtient la touche Entrée pour la géométrie actuelle.
+     *
+     * @return la touche Entrée.
+     */
     Touche getEntr() {
         if (this == ANSI || this == ALT) {
             return ToucheClavierFactory.create(4, 13, this);
@@ -62,6 +87,13 @@ public enum Geometry {
         return ToucheClavierFactory.create(3, 14, this);
     }
 
+    /**
+     * Récupère une géométrie à partir d'une chaîne de caractères.
+     *
+     * @param geometry le nom de la géométrie (exemple : "ANSI").
+     * @return la géométrie correspondante.
+     * @throws IllegalArgumentException si le nom ne correspond à aucune géométrie.
+     */
     static Geometry getGeometry(String geometry) {
         switch (geometry) {
             case "ANSI":
@@ -81,6 +113,12 @@ public enum Geometry {
         }
     }
 
+    /**
+     * Obtient les limites des positions centrales pour la géométrie actuelle.
+     * Ces limites définissent les zones clés du clavier.
+     *
+     * @return un tableau contenant les limites pour la géométrie.
+     */
     int[] getMillieu() {
         int[] limites = new int[6];
 
