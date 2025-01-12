@@ -10,6 +10,49 @@ import java.util.*;
  * le filtrage en fonction du nombre de touches nécessaires et l'affichage des résultats.
  */
 public class LectureEtTraitementCSV implements ICSVTraitement {
+
+    private String[] extraireParties(String ligne) {
+        String[] parties = new String[3];
+    
+        // Trouver les indices des virgules
+        int premiereVirgule = ligne.indexOf(',');
+        int derniereVirgule = ligne.lastIndexOf(',');
+
+         // Vérification : S'assurer que les indices sont valides
+        if (premiereVirgule == -1 || derniereVirgule == -1 || premiereVirgule == derniereVirgule) {
+            throw new IllegalArgumentException("La ligne est mal formatée : " + ligne);
+        }
+    
+        // Extraire chaque partie
+        String type = ligne.substring(0, premiereVirgule).trim();
+        String ngramme = ligne.substring(premiereVirgule + 1, derniereVirgule).trim();
+        String valeur = ligne.substring(derniereVirgule + 1).trim();
+    
+        // Validation du type
+        if (!type.equals("ungramme") && !type.equals("bigramme") && !type.equals("trigramme")) {
+            throw new IllegalArgumentException("Type invalide : " + type);
+        }
+    
+        // Supprimer les guillemets et enlever 2 caractères devant et derrière
+        if (ngramme.length() >= 2 && ngramme.startsWith("\"") && ngramme.endsWith("\"")) {
+            ngramme = ngramme.substring(1, ngramme.length() - 1);
+        } else {
+            throw new IllegalArgumentException("Ngramme mal formaté : " + ngramme);
+        }
+    
+        // Validation de la valeur (doit être une suite de chiffres)
+        if (!valeur.matches("\\d+")) {
+            throw new IllegalArgumentException("Valeur invalide : " + valeur);
+        }
+    
+        // Attribuer les parties validées
+        parties[0] = type;      // Type
+        parties[1] = ngramme;   // Ngramme
+        parties[2] = valeur;    // Valeur
+    
+        return parties;
+    }
+    
     
     /**
      * Lit un fichier CSV et effectue un traitement sur les n-grammes qu'il contient.
@@ -42,7 +85,7 @@ public class LectureEtTraitementCSV implements ICSVTraitement {
     
             while ((ligne = br.readLine()) != null) {
                 if (premiereLigne) {
-                    String[] headerParts = ligne.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+                    String[] headerParts = extraireParties(ligne);
                     if (headerParts.length < 2) {
                         throw new IllegalArgumentException("Le fichier CSV a un mauvais format.");
                     }
@@ -59,7 +102,7 @@ public class LectureEtTraitementCSV implements ICSVTraitement {
                     continue;
                 }
     
-                String[] parties = ligne.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+                String[] parties = extraireParties(ligne);
                 if (parties.length == 3) {
                     String type = parties[0];
                     String ngramme = parties[1].replace("\"", "");
