@@ -2,6 +2,9 @@ package projet.poo;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import projet.poo.analyseurfrequence.FrequenceToCSV;
+
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.io.FileReader;
