@@ -1,8 +1,3 @@
-**Binôme :**
-
-- **Étudiant 1 :** AOUINI, Radouane
-- **Étudiant 2 :** CHIOUKH, Sami
-
 ## Instructions pour l'exécution
 
 ### Compilation et exécution
